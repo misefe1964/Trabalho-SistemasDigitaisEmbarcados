@@ -22,8 +22,6 @@ int main() {
 
   SystemInit();
 
-  // remove ledAzul
-  
   while(1)
   {
 

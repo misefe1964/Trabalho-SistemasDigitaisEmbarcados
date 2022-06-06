@@ -10,7 +10,7 @@ void mcp23S17_init(void){
     // PINMODE
     // PINSEL1
     PINSEL1 |= bit0;
-    PINSEL1 |= bit1; // select SSEL
+    PINSEL1 |= bit1; // select SSEL:q
 
     PINSEL1 |= bit2;
     PINSEL1 |= bit3; // select MISO
@@ -20,9 +20,9 @@ void mcp23S17_init(void){
 
     //S0SPINT
     S0SPINT->SPIF = 0 // interrupt flag is not set
-    
 }
 void mcp23S17_conf_pin(uint8_t pin, uint8_t mode){
+
 }
 void mcp23S17_write_pin(uint8_t reg_addr, uint8_t data){
 }
