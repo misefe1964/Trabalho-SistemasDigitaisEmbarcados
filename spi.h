@@ -1,6 +1,7 @@
 #ifndef _SPI_
 #define _SPI_
 #include "LPC17xx.h"
+#include "misc.h"
 
 // define pins from expansor
 

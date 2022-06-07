@@ -2,24 +2,25 @@
 
 void mcp23S17_init(void){
     // set registers
-    PCONP->PCSPI = 1; // power
-    PCLKSEL0->PCLK_SPI = 0; // clock
+    LPC_SC->PCONP |= bit8; // power on PCSPI
+    LPC_SC->PCLKSEL0 |= bit16;
+    LPC_SC->PCLKSEL0 |= bit17; // select clock for SPU
     // PINSEL0[31:30] = 11, PSI Clock = SCK
-    PINSEL |= bit30; 
-    PINSEL |= bit31;
+    LPC_PINCON->PINSEL0 |= bit30; 
+    LPC_PINCON->PINSEL0 |= bit31;
     // PINMODE
     // PINSEL1
-    PINSEL1 |= bit0;
-    PINSEL1 |= bit1; // select SSEL:q
+    LPC_PINCON->PINSEL1 |= bit0;
+    LPC_PINCON->PINSEL1 |= bit1; // select SSEL:q
 
-    PINSEL1 |= bit2;
-    PINSEL1 |= bit3; // select MISO
+    LPC_PINCON->PINSEL1 |= bit2;
+    LPC_PINCON->PINSEL1 |= bit3; // select MISO
 
-    PINSEL1 |= bit4;
-    PINSEL1 |= bit5; // select MOSI
+    LPC_PINCON->PINSEL1 |= bit4;
+    LPC_PINCON->PINSEL1 |= bit5; // select MOSI
 
     //S0SPINT
-    S0SPINT->SPIF = 0 // interrupt flag is not set
+    LPC_SPI->SPINT &= nbit0; // interrupt flag is not set
 }
 void mcp23S17_conf_pin(uint8_t pin, uint8_t mode){
 
