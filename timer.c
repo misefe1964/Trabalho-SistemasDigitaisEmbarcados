@@ -10,10 +10,6 @@ void funcContador(void){
     contadorTimer++;
 }
 
-void delay_init(void) {
-    periodica_cria("timer", 1, funcContador);
-}
-
 
 void timer_init(void (*f)(void))
 {
@@ -37,11 +33,6 @@ void RIT_IRQHandler(void (*f)(void))
 	funcao();
 }
 
-void delay_ms(uint16_t tempo) {
-
-    uint64_t tmp = contadorTimer;
-    while(contadorTimer < tmp + tempo);
-}
 
 void desabilita_int(void) {
     LPC_RIT->RICTRL &= ~bit3; 
