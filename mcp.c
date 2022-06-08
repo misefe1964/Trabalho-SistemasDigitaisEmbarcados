@@ -21,6 +21,9 @@ void mcp23S17_init(void){
 
     //S0SPINT
     LPC_SPI->SPINT &= nbit0; // interrupt flag is not set
+
+    LPC_SPI->SPCR |= bit3; 
+    LPC_SPI->SPCR &= nbit4;   // bit is sent on rising edge and sampled on falling edge
 }
 void mcp23S17_conf_pin(uint8_t pin, uint8_t mode){
 

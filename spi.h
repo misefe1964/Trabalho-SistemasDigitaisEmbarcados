@@ -3,6 +3,7 @@
 #include "LPC17xx.h"
 #include "misc.h"
 #include "digital.h"
+#include "delay.h"
 
 
 // spi functions
