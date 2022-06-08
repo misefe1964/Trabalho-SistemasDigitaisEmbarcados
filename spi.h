@@ -2,6 +2,7 @@
 #define _SPI_
 #include "LPC17xx.h"
 #include "misc.h"
+#include "digital.h"
 
 // define pins from expansor
 

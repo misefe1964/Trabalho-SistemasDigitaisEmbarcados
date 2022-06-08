@@ -3,6 +3,9 @@
 #include "LPC17xx.h"
 #include "misc.h"
 
+#define OUTPUT 0
+#define INPUT 1
+
 // define pins from expansor
 
 // mcp functions
