@@ -24,6 +24,9 @@ void mcp23S17_init(void){
 }
 void mcp23S17_conf_pin(uint8_t pin, uint8_t mode){
 
+    spi_write(0x40, 0);
+    spi_write(reg);
+    b = spi_write(function);
 }
 void mcp23S17_write_pin(uint8_t reg_addr, uint8_t data){
 }

@@ -6,6 +6,6 @@
 
 
 // spi functions
-void spi_write(uint8_t byte);
+uint8_t spi_write(uint8_t byte);
 
 #endif

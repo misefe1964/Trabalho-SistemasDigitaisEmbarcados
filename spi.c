@@ -1,6 +1,6 @@
 #include "spi.h"
 
-void spi_write(uint8_t byte){
+uint8_t spi_write(uint8_t byte){
     uint8_t valor = 0;
     uint8_t bit;
     for(x = 0; x <8; x++) {
