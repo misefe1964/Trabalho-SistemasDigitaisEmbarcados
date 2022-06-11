@@ -1,4 +1,4 @@
-#include "spi.h"
+#include "mcp.h"
 
 void mcp23S17_init(void){
     // set registers
