@@ -11,8 +11,7 @@ void funcContador(void){
 }
 
 
-void timer_init(void (*f)(void))
-{
+void timer_init(void (*f)(void)) {
     LPC_SC->PCONP |= bit16;               //Power Control for Peripherals register: power up RIT clock
     LPC_SC->PCLKSEL1 |= (bit26 & bit27);  //Peripheral clock selection: divide clock by 8 (run RIT clock by 12MHz)
     LPC_RIT->RICOUNTER = 0;               //set counter to zero
@@ -26,8 +25,7 @@ void timer_init(void (*f)(void))
 	funcao = f;	
 }
  
-void RIT_IRQHandler(void (*f)(void))
-{
+void RIT_IRQHandler(void (*f)(void)) {
  	//clear flag
     LPC_RIT->RICTRL |= bit0; //write 1 to clear bit
 	funcao();

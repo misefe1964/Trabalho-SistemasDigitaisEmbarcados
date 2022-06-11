@@ -6,36 +6,26 @@
 
 struct elemento *lista;
 
-void tratadorTimer(void)
-{
-	struct elemento *tmp;
-	
+void tratadorTimer(void) {
+    struct elemento *tmp;
 	tmp = lista;
-    
-	while (tmp != NULL)
-    {
-            tmp->contador--;
-            if (tmp->contador==0)
-            {
-
-                tmp->contador=tmp->periodo;
-                tmp->funcao();
-            }
-        	tmp = tmp->proximo;
+	while (tmp != NULL) {
+        tmp->contador--;
+        if (tmp->contador==0) {
+            tmp->contador=tmp->periodo;
+            tmp->funcao();
+        }
+        tmp = tmp->proximo;
     }
         	
 }
 
-void periodica_init(void)
-{
+void periodica_init(void) {
     lista = NULL;
     timer_init(tratadorTimer);
 }
-void periodica_cria(char *nome, uint16_t periodo, void (*funcao)(void) )
-{
-
+void periodica_cria(char *nome, uint16_t periodo, void (*funcao)(void) ) {
     struct elemento *novo;
-
     novo = (struct elemento *) malloc (sizeof (struct elemento));
 
     novo->periodo = periodo;
@@ -44,17 +34,14 @@ void periodica_cria(char *nome, uint16_t periodo, void (*funcao)(void) )
     strcpy(novo->nome, nome);
     novo->proximo = lista;
     lista = novo;
-
 }
-
 
 void periodica_remove (char *nome){
     struct elemento *tmp, *ant;
 	desabilita_int();
 	tmp = lista;
     
-	while (tmp != NULL)
-    {
+	while (tmp != NULL) {
         if(strcmp(tmp->nome, nome)==0){
             // achou
             // se eh primeiro da lista
@@ -73,3 +60,4 @@ void periodica_remove (char *nome){
     }
     habilita_int();
 }
+

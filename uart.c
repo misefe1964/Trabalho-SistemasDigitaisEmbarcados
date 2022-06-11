@@ -1,10 +1,4 @@
-
-
-
 #include "uart.h"
-
-
-
 
 int _write (int fd, const void *buf, size_t count)
 {
@@ -35,8 +29,7 @@ int _read (int fd, const void *buf, size_t count)
 
 // ***********************
 // Function to set up UART
-void UART0_Init(int baudrate)
-{
+void UART0_Init(int baudrate) {
 	int pclk;
 	unsigned long int Fdiv;
 
@@ -64,16 +57,14 @@ void UART0_Init(int baudrate)
 
 // ***********************
 // Function to send character over UART
-void UART0_Sendchar(char c)
-{
+void UART0_Sendchar(char c) {
 	while( (LPC_UART0->LSR & LSR_THRE) == 0 );	// Block until tx empty
 	
 	LPC_UART0->THR = c;
 }
 
 // Function to get character from UART
-char UART0_Getchar()
-{
+char UART0_Getchar() {
 	char c;
 	while( (LPC_UART0->LSR & LSR_RDR) == 0 );  // Nothing received so just block 	
 	c = LPC_UART0->RBR; // Read Receiver buffer register

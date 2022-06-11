@@ -11,7 +11,6 @@
 // > reset halt
 // > flash write_image erase main.bin 0x0 bin
 
-
 #include "LPC17xx.h"
 #include "digital.h"
 #include <stdint.h>

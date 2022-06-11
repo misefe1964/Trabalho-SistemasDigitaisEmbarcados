@@ -1,6 +1,6 @@
-
 #ifndef _UART_H_
 #define _UART_H_
+
 #include "LPC17xx.h"
 #include <stddef.h>
 #define PCUART0_POWERON (1 << 3)
@@ -24,11 +24,7 @@
 #define LSR_TEMT	0x40
 #define LSR_RXFE	0x80
 
-
-
-
 int _write (int fd, const void *buf, size_t count);
-
 
 int _read (int fd, const void *buf, size_t count);
 
@@ -36,5 +32,5 @@ void UART0_Init(int baudrate);
 void UART0_Sendchar(char c);
 char UART0_Getchar();
 
-
 #endif /*UART_H_*/
+

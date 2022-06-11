@@ -11,7 +11,6 @@ struct elemento {
     struct elemento *proximo;
 };
 
-
 void periodica_init(void);
 void periodica_cria(char *nome, uint16_t periodo, void (*funcao)(void));
 void periodica_remove (char *nome);

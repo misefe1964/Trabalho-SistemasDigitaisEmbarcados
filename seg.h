@@ -18,5 +18,4 @@
 void seg_init (void);
 void seg_apresenta (uint16_t valor);
 
-
 #endif
