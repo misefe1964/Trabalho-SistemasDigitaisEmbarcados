@@ -29,12 +29,5 @@ int main() {
     seg_init( );
 
     while(1){
-        uint16_t x;
-        delay_ms(1000);
-        for (uint16_t v=0;v<9999;v++){
-            printf("Entre com o numero \n");
-            scanf("%d",&x);
-            seg_apresenta(x);
-        }
     }
 }
