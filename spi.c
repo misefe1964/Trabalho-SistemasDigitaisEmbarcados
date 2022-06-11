@@ -8,7 +8,7 @@ uint8_t spi_write(uint8_t byte){
         digitalWrite(MOSI, bit);
         digitalWrite(SCK, HIGH);
         delay_ms(50);
-        valor = (valor << 1 | digital_read(MISO));
+        valor = (valor << 1 | digitalRead(MISO));
         digitalWrite(SCK, LOW);
         delay_ms(50);
     }
