@@ -18,6 +18,7 @@
 #include "periodica.h"
 #include "delay.h"
 #include "uart.h"
+#include "seg.h"
 
 int main() {
     SystemInit();
