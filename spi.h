@@ -9,7 +9,7 @@
 #define MOSI PIN(0, 18)
 #define SCK  PIN(0, 15)
 
-// spi functi
+// spi functions
 uint8_t spi_write(uint8_t byte);
 
 #endif
