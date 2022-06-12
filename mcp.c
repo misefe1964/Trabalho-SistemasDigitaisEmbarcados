@@ -26,7 +26,7 @@ void mcp23S17_init(void) {
 
     LPC_SPI->SPCR |= bit3; 
     LPC_SPI->SPCR &= nbit4;   // bit is sent on rising edge and sampled on falling edge
-    
+
     // All IO pins start as INPUT
     spi_write(0x41);
     spi_write(IODIRA);
