@@ -26,7 +26,7 @@ int main() {
     UART0_Init(9600);
     periodica_init();
     delay_init();
-    seg_init( );
+    seg_init();
 
     while(1){
     }
