@@ -28,6 +28,6 @@ int main() {
     delay_init();
     seg_init();
 
-    while(1){
+    while(1) {
     }
 }
