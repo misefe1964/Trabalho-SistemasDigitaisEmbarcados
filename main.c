@@ -17,6 +17,7 @@
 #include "periodica.h"
 #include "delay.h"
 #include "uart.h"
+#include "seg.h"
 
 int main() {
     SystemInit();
@@ -24,7 +25,7 @@ int main() {
     UART0_Init(9600);
     periodica_init();
     delay_init();
-    seg_init( );
+    seg_init();
 
     while(1) {
         uint16_t x;
