@@ -1,6 +1,6 @@
 #include "mcp.h"
 
-void mcp23S17_init(void){
+void mcp23S17_init(void) {
     // set registers
     LPC_SC->PCONP |= bit8; // power on PCSPI
     LPC_SC->PCLKSEL0 |= bit16;
