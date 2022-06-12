@@ -14,3 +14,4 @@ uint8_t spi_write(uint8_t byte){
     }
     return (valor);
 }
+

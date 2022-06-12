@@ -11,7 +11,6 @@
 // > reset halt
 // > flash write_image erase main.bin 0x0 bin
 
-
 #include "LPC17xx.h"
 #include "digital.h"
 #include <stdint.h>
@@ -29,5 +28,13 @@ int main() {
     seg_init();
 
     while(1) {
+        uint16_t x;
+        delay_ms(1000);
+        for (uint16_t v=0;v<9999;v++) {
+            printf("Entre com o numero \n");
+            scanf("%d",&x);
+            seg_apresenta(x);
+        }
     }
 }
+
