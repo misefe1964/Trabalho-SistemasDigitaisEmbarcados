@@ -1,9 +1,8 @@
 #include "LPC17xx.h"
 #include "delay.h"
 
-
-
-#define ST_CTRL     (*((volatile unsigned long*)0xE000E010)) //page 783
+#define ST_CTRL   (*((volatile unsigned long*)0xE000E010)) //page 783
+                                                           //
 volatile unsigned long sysTickCounter;
 
 //tratador de interrupcao
@@ -38,5 +37,4 @@ void delay_ms(uint32_t n) {
 	yes_timer(); 
 	while (sysTickCounter != 0);
 }
-
 

@@ -5,8 +5,7 @@
 #include "digital.h"
 #include "delay.h"
 
-
-// spi functions
 uint8_t spi_write(uint8_t byte);
 
 #endif
+

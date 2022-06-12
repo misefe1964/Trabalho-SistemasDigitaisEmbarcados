@@ -10,7 +10,6 @@ void funcContador(void){
     contadorTimer++;
 }
 
-
 void timer_init(void (*f)(void)) {
     LPC_SC->PCONP |= bit16;               //Power Control for Peripherals register: power up RIT clock
     LPC_SC->PCLKSEL1 |= (bit26 & bit27);  //Peripheral clock selection: divide clock by 8 (run RIT clock by 12MHz)
@@ -31,7 +30,6 @@ void RIT_IRQHandler(void (*f)(void)) {
 	funcao();
 }
 
-
 void desabilita_int(void) {
     LPC_RIT->RICTRL &= ~bit3; 
 }
@@ -39,3 +37,4 @@ void desabilita_int(void) {
 void habilita_int(void) {
     LPC_RIT->RICTRL |= bit3; 
 }
+

@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 struct elemento *lista;
 
 void tratadorTimer(void) {
@@ -17,13 +16,13 @@ void tratadorTimer(void) {
         }
         tmp = tmp->proximo;
     }
-        	
 }
 
 void periodica_init(void) {
     lista = NULL;
     timer_init(tratadorTimer);
 }
+
 void periodica_cria(char *nome, uint16_t periodo, void (*funcao)(void) ) {
     struct elemento *novo;
     novo = (struct elemento *) malloc (sizeof (struct elemento));
@@ -36,20 +35,20 @@ void periodica_cria(char *nome, uint16_t periodo, void (*funcao)(void) ) {
     lista = novo;
 }
 
-void periodica_remove (char *nome){
+void periodica_remove (char *nome) {
     struct elemento *tmp, *ant;
 	desabilita_int();
 	tmp = lista;
     
 	while (tmp != NULL) {
-        if(strcmp(tmp->nome, nome)==0){
+        if(strcmp(tmp->nome, nome)==0) {
             // achou
             // se eh primeiro da lista
-            if(tmp == lista){
+            if(tmp == lista) {
                 lista = tmp->proximo;
             }
             // se estiver no meio
-            else{
+            else {
                 ant->proximo = tmp->proximo;
             }
             free (tmp);

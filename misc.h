@@ -35,8 +35,6 @@
 #define nbit31  (0<<31)
 #define nbit32  (0<<32)
 
-
-
 #define bit0  (1<<0)
 #define bit1  (1<<1)
 #define bit2  (1<<2)
@@ -71,5 +69,5 @@
 #define bit31  (1<<31)
 #define bit32  (1<<32)
 
-
 #endif
+

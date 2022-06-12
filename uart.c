@@ -1,7 +1,6 @@
 #include "uart.h"
 
-int _write (int fd, const void *buf, size_t count)
-{
+int _write (int fd, const void *buf, size_t count) {
 	uint8_t x;
 	char *vet = (char *) buf;
 
@@ -9,15 +8,13 @@ int _write (int fd, const void *buf, size_t count)
 	return count;
 }
 
-int _read (int fd, const void *buf, size_t count)
-{
+int _read (int fd, const void *buf, size_t count) {
 	uint8_t contador=0;
 	char *vet = (char *) buf;
 	char letra;
 
 
-	while (contador < count)
-	{
+	while (contador < count) {
 		letra = UART0_Getchar();
 		if (letra=='\n') break;
 		vet[contador]=letra;
