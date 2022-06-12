@@ -1,4 +1,3 @@
-
 #ifndef __SEG__
 #define __SEG__
 #include <stdint.h>
@@ -18,5 +17,5 @@
 void seg_init (void);
 void seg_apresenta (uint16_t valor);
 
-
 #endif
+

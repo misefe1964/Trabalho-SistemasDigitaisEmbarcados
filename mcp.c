@@ -1,6 +1,6 @@
 #include "spi.h"
 
-void mcp23S17_init(void){
+void mcp23S17_init(void) {
     // set registers
     LPC_SC->PCONP |= bit8; // power on PCSPI
     LPC_SC->PCLKSEL0 |= bit16;
@@ -25,13 +25,14 @@ void mcp23S17_init(void){
     LPC_SPI->SPCR |= bit3; 
     LPC_SPI->SPCR &= nbit4;   // bit is sent on rising edge and sampled on falling edge
 }
-void mcp23S17_conf_pin(uint8_t pin, uint8_t mode){
+
+void mcp23S17_conf_pin(uint8_t pin, uint8_t mode) {
 
     spi_write(0x40, 0);
     spi_write(reg);
     b = spi_write(function);
 }
-void mcp23S17_write_pin(uint8_t reg_addr, uint8_t data){
-}
 
+void mcp23S17_write_pin(uint8_t reg_addr, uint8_t data) {
+}
 
