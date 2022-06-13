@@ -12,5 +12,8 @@
 // spi functions
 uint8_t spi_write(uint8_t byte);
 
+void set_cs_low();
+void set_cs_high();
+
 #endif
 

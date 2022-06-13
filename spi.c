@@ -15,3 +15,12 @@ uint8_t spi_write(uint8_t byte){
     return (valor);
 }
 
+// TODO: Set chip select pin high or low
+// needed for spi_write to be effective
+
+void set_cs_low() {
+}
+
+void set_cs_high() {
+}
+
