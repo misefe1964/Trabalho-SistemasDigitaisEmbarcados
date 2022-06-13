@@ -1,6 +1,6 @@
 #include "mcp.h"
 
-uint8_T current_IODIRA = 0xFF;
+uint8_T current_IODIRA;
 
 void mcp23S17_init(void) {
     // set registers
@@ -28,6 +28,7 @@ void mcp23S17_init(void) {
     LPC_SPI->SPCR &= nbit4;   // bit is sent on rising edge and sampled on falling edge
 
     // All IO pins start as INPUT
+    current_IODIRA = 0xFF;
     spi_write(0x41);
     spi_write(IODIRA);
     spi_write(current_IODIRA);
