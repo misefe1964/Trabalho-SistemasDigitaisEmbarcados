@@ -34,6 +34,7 @@ void mcp23S17_init(void) {
 }
 
 void mcp23S17_conf_pin(uint8_t pin, uint8_t mode) {
+    set_cs_low();
     // send device opcode = 0100 0001
     spi_write(0x41);
     // send register address
@@ -41,8 +42,17 @@ void mcp23S17_conf_pin(uint8_t pin, uint8_t mode) {
     // update current state of IODIRA register
     current_IODIRA = current_IODIRA | (1 << pin);
     b = spi_write(current_IODIRA);
+    set_cs_high();
 }
 
-void mcp23S17_write_pin(uint8_t reg_addr, uint8_t data) {
+void mcp23S17_write_pin(uint8_t reg_addr, uint8_t data, uint8_t mode) {
+    set_cs_low();
+    // send device opcode = 0100 0000 + mode
+    spi_write(0x40 + MODE);
+    // send register address
+    spi_write(reg_addr);
+    // update current state of IODIRA register
+    b = spi_write(data);
+    set_cs_high();
 }
 
