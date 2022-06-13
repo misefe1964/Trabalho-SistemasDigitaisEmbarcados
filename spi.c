@@ -16,7 +16,7 @@ uint8_t spi_write(uint8_t byte){
 }
 
 void set_cs_low() {
-    digitalWrite(SSEL,LOW);
+    digitalWrite(SSEL, LOW);
 }
 
 void set_cs_high() {
