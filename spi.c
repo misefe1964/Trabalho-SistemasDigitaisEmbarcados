@@ -22,5 +22,3 @@ void set_cs_low() {
 void set_cs_high() {
     digitalWrite(SSEL,HIGH);
 }
-
-
