@@ -1,6 +1,6 @@
 #include "mcp.h"
 
-uint8_T current_IODIRA = 0xFF;
+uint8_t current_IODIRA = 0xFF;
 
 void mcp23S17_init(void) {
     // set registers
@@ -41,28 +41,31 @@ void mcp23S17_conf_pin(uint8_t pin, uint8_t mode) {
     // send register address
     spi_write(IODIRA);
     // update current state of IODIRA register
-    current_IODIRA = current_IODIRA | (1 << pin);
-    b = spi_write(current_IODIRA);
+    if (mode == INPUT)
+        current_IODIRA |= (mode << pin);
+    else if (mode == OUTPUT)
+        current_IODIRA &= (mode << pin);
+    spi_write(current_IODIRA);
 
     set_cs_high();
 }
 
-uint8_t mcp23S17_write_pin(uint8_t reg_addr, uint8_t data, uint8_t mode) {
+uint8_t mcp23S17_write_pin(uint8_t pin, uint8_t data, uint8_t mode) {
     set_cs_low();
-
     // send device opcode = 0100 0000 + mode
-    spi_write(0x40 + MODE);
-    // send register address
-    spi_write(reg_addr);
-    // set data to be written
-    b = spi_write(data);
+    spi_write(0x40 + mode);
 
+    // send register address
+    spi_write(GPIOA);
+
+    // set data to be written
+    uint8_t b = spi_write(data);
     set_cs_high();
 
     if(mode == READ) {
         return b;
     }
-    else {
+    else if (mode == WRITE) {
         return (uint8_t)0;
     }
 }
