@@ -8,10 +8,19 @@ uint8_t spi_write(uint8_t byte){
         digitalWrite(MOSI, bit);
         digitalWrite(SCK, HIGH);
         delay_ms(50);
-        valor = (valor << 1 | digital_read(MISO));
+        valor = (valor << 1 | digitalRead(MISO));
         digitalWrite(SCK, LOW);
         delay_ms(50);
     }
     return (valor);
+}
+
+// TODO: Set chip select pin high or low
+// needed for spi_write to be effective
+
+void set_cs_low() {
+}
+
+void set_cs_high() {
 }
 
