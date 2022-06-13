@@ -18,23 +18,24 @@
 #include "delay.h"
 #include "uart.h"
 #include "seg.h"
+#include "mcp.h"
 
 int main() {
     SystemInit();
-
     UART0_Init(9600);
     periodica_init();
     delay_init();
     seg_init();
+    mcp23S17_init();
 
-    while(1) {
-        uint16_t x;
-        delay_ms(1000);
-        for (uint16_t v=0;v<9999;v++) {
-            printf("Entre com o numero \n");
-            scanf("%d",&x);
-            seg_apresenta(x);
-        }
-    }
+    mcp23S17_conf_pin(7, OUTPUT);
+    mcp23S17_conf_pin(6, OUTPUT);
+    mcp23S17_conf_pin(5, OUTPUT);
+    mcp23S17_conf_pin(4, OUTPUT);
+
+    mcp23S17_write_pin(7, 1, WRITE);
+    mcp23S17_write_pin(6, 1, WRITE);
+    mcp23S17_write_pin(5, 1, WRITE);
+    mcp23S17_write_pin(4, 1, WRITE);
 }
 
