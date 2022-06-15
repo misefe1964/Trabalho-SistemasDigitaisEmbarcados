@@ -1,7 +1,5 @@
 #include "spi.h"
 
-static uint32_t spi_GetPclk(void);
-
 void spi_init() {
     pinMode(MOSI,OUTPUT);
     pinMode(MISO,INPUT);
