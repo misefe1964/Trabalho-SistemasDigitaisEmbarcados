@@ -19,8 +19,8 @@
 #define INTFB      0x17
 #define INTCAPA    0x08
 #define INTCAPB    0x18
-#define GPIOA      0x09
-#define GPIOB      0x19
+#define GPIOA      0x12
+#define GPIOB      0x13
 #define OLATA      0x0A
 #define OLATB      0x1A
 
