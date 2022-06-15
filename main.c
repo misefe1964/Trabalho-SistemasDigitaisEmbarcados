@@ -40,7 +40,6 @@ int main() {
     seg_apresenta(MOSI);
 
     uint8_t tmp = mcp23S17_write_pin(7, 0, READ);
-    seg_apresenta(tmp);
 
     while(1) {}
 }
