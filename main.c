@@ -25,7 +25,6 @@ int main() {
     periodica_init();
     delay_init();
     seg_init();
-    spi_init();
     mcp23S17_init();
 
 
@@ -38,6 +37,10 @@ int main() {
     mcp23S17_write_pin(6, 1, WRITE);
     mcp23S17_write_pin(5, 1, WRITE);
     mcp23S17_write_pin(4, 1, WRITE);
+    seg_apresenta(MOSI);
+
+    uint8_t tmp = mcp23S17_write_pin(7, 0, READ);
+    seg_apresenta(tmp);
 
     while(1) {}
 }
