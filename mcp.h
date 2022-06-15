@@ -14,4 +14,3 @@ void mcp23S17_init(void);
 void mcp23S17_conf_pin(uint8_t pin, uint8_t mode);
 uint8_t mcp23S17_write_pin(uint8_t pin, uint8_t data, uint8_t mode);
 #endif
-

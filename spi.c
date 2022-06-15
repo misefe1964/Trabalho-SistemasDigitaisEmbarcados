@@ -3,6 +3,11 @@
 static uint32_t spi_GetPclk(void);
 
 void spi_init() {
+    pinMode(MOSI,OUTPUT);
+    pinMode(MISO,INPUT);
+    pinMode(SCK,OUTPUT);
+    pinMode(SSEL,OUTPUT);
+
     // set registers
     LPC_SC->PCONP |= bit8; // power on PCSPI
     LPC_SC->PCLKSEL0 |= bit16;

@@ -10,7 +10,6 @@
 #define MISO PIN(0, 17)
 #define MOSI PIN(0, 18)
 
-// SPI clock frequency
 #define SCK_Freq 4000000
 
 // spi functions
