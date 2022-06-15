@@ -39,7 +39,6 @@ void mcp23S17_conf_pin(uint8_t pin, uint8_t mode) {
 uint8_t mcp23S17_write_pin(uint8_t pin, uint8_t data, uint8_t mode) {
     if (data == 1) current_GPIOA |= (1 << pin);
     else if (data == 0) current_GPIOA &= ~(1 << pin);
-    // valor do latch = current_GPIOA
 
     set_cs_low();
 
