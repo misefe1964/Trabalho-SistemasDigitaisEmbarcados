@@ -10,6 +10,9 @@
 #define MISO PIN(0, 17)
 #define MOSI PIN(0, 18)
 
+// SPI clock frequency
+#define SCK_Freq 4000000
+
 // spi functions
 uint8_t spi_write(uint8_t byte);
 
@@ -17,4 +20,3 @@ void set_cs_low();
 void set_cs_high();
 
 #endif
-

@@ -1,6 +1,6 @@
 #include "spi.h"
 
-
+static uint32_t spi_GetPclk(void);
 
 void spi_init() {
     // set registers
@@ -27,10 +27,12 @@ void spi_init() {
 
     LPC_SPI->SPCR |= bit3; 
     LPC_SPI->SPCR &= nbit4;   // bit is sent on rising edge and sampled on falling edge
+
+    LPC_SPI->SPCCR = spi_GetPclk()/SCK_Freq;  /* Set Spi Clock */
   
 }
 
-uint8_t spi_write(uint8_t byte){
+uint8_t spi_write(uint8_t byte) {
     uint8_t valor = 0;
     uint8_t bit;
     for(uint8_t x = 0; x <8; x++) {
@@ -51,4 +53,25 @@ void set_cs_low() {
 
 void set_cs_high() {
     digitalWrite(SSEL, HIGH);
+}
+
+static uint32_t spi_GetPclk(void) {
+    uint32_t v_spiPclk_u32,v_Pclk_u32;
+    v_spiPclk_u32 = (LPC_SC->PCLKSEL0 >> 16) & 0x03;
+    switch( v_spiPclk_u32 )
+    {
+    case 0x00:
+        v_Pclk_u32 = SystemCoreClock/4;           //SystemFrequency or  SystemCoreClock
+        break;
+    case 0x01:
+        v_Pclk_u32 = SystemCoreClock;
+        break;
+    case 0x02:
+        v_Pclk_u32 = SystemCoreClock/2;
+        break;
+    case 0x03:
+        v_Pclk_u32 = SystemCoreClock/8;
+        break;
+    }
+    return (v_Pclk_u32);
 }
