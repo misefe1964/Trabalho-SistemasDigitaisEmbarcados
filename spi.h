@@ -4,7 +4,6 @@
 #include "misc.h"
 #include "digital.h"
 #include "delay.h"
-#include "seg.h"
 
 #define SCK  PIN(0, 15)
 #define SSEL PIN(0, 16)
