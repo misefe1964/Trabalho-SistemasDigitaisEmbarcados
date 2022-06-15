@@ -22,11 +22,12 @@
 
 int main() {
     SystemInit();
-    UART0_Init(9600);
     periodica_init();
     delay_init();
     seg_init();
+    spi_init();
     mcp23S17_init();
+
 
     mcp23S17_conf_pin(7, OUTPUT);
     mcp23S17_conf_pin(6, OUTPUT);
@@ -37,5 +38,7 @@ int main() {
     mcp23S17_write_pin(6, 1, WRITE);
     mcp23S17_write_pin(5, 1, WRITE);
     mcp23S17_write_pin(4, 1, WRITE);
+
+    while(1) {}
 }
 

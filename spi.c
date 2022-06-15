@@ -34,6 +34,8 @@ void spi_init() {
     LPC_SPI->SPCR &= nbit4;   // bit is sent on rising edge and sampled on falling edge
 
     LPC_SPI->SPCCR = spi_GetPclk()/SCK_Freq; // Set Spi Clock
+    
+    set_cs_high();
   
 }
 
