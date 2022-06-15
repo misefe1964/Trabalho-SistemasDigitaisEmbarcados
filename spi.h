@@ -5,7 +5,7 @@
 #include "digital.h"
 #include "delay.h"
 
-#define SCK PIN(0, 15)
+#define SCK  PIN(0, 15)
 #define SSEL PIN(0, 16)
 #define MISO PIN(0, 17)
 #define MOSI PIN(0, 18)

@@ -1,5 +1,35 @@
 #include "spi.h"
 
+
+
+void spi_init() {
+    // set registers
+    LPC_SC->PCONP |= bit8; // power on PCSPI
+    LPC_SC->PCLKSEL0 |= bit16;
+    LPC_SC->PCLKSEL0 |= bit17; // select clock for SPI
+
+    // PINSEL0[31:30] = 11, PSI Clock = SCK
+    LPC_PINCON->PINSEL0 |= bit30; 
+    LPC_PINCON->PINSEL0 |= bit31;
+    // PINMODE
+    // PINSEL1
+    LPC_PINCON->PINSEL1 |= bit0;
+    LPC_PINCON->PINSEL1 |= bit1; // select SSEL
+
+    LPC_PINCON->PINSEL1 |= bit2;
+    LPC_PINCON->PINSEL1 |= bit3; // select MISO
+
+    LPC_PINCON->PINSEL1 |= bit4;
+    LPC_PINCON->PINSEL1 |= bit5; // select MOSI
+
+    //S0SPINT
+    LPC_SPI->SPINT &= nbit0; // interrupt flag is not set
+
+    LPC_SPI->SPCR |= bit3; 
+    LPC_SPI->SPCR &= nbit4;   // bit is sent on rising edge and sampled on falling edge
+  
+}
+
 uint8_t spi_write(uint8_t byte){
     uint8_t valor = 0;
     uint8_t bit;
