@@ -38,7 +38,8 @@ int main() {
     mcp23S17_write_pin(5, 1, WRITE);
     mcp23S17_write_pin(4, 1, WRITE);
 
-    uint8_t tmp = mcp23S17_write_pin(7, 0, READ);
+    uint8_t tmp = mcp23S17_write_pin(6, 0, READ);
+    seg_apresenta(tmp);
 
     while(1) {}
 }
