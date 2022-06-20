@@ -8,12 +8,12 @@ void mcp23S17_init(void) {
     // All IO pins start as INPUT
     set_cs_low();
     current_IODIRA = 0xFF;
-    spi_write(0x41);
+    spi_write(0x40);
     spi_write(IODIRA);
     spi_write(current_IODIRA);
     // All IO pins start as LOW
     current_GPIOA = 0x00;
-    spi_write(0x41);
+    spi_write(0x40);
     spi_write(IODIRA);
     spi_write(current_GPIOA);
     set_cs_high();
@@ -54,7 +54,7 @@ uint8_t mcp23S17_write_pin(uint8_t pin, uint8_t data, uint8_t mode) {
     set_cs_high();
 
     if(mode == READ) {
-        return b & (1 << pin);
+        return (b &= (1 << pin) >> pin);
     }
     return (uint8_t)0;
 }
