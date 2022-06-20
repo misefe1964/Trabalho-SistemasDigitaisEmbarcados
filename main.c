@@ -1,4 +1,4 @@
-// EXEMPLO DE UM Pisca Pisca que usa a Lampada do kit
+// TRABALHO 1 - Carlos Eduardo e Milena
 // para compilar:  
 //                    make
 // para gravar na placa (usando o bootloader): 
