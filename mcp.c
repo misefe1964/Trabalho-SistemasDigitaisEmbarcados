@@ -22,8 +22,8 @@ void mcp23S17_init(void) {
 void mcp23S17_conf_pin(uint8_t pin, uint8_t mode) {
     set_cs_low();
 
-    // send device opcode = 0100 0001 (read)
-    spi_write(0x41);
+    // send device opcode = 0100 0000 (write)
+    spi_write(0x40);
     // send register address
     spi_write(IODIRA);
     // update current state of IODIRA register
