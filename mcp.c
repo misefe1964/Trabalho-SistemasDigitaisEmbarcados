@@ -19,6 +19,12 @@ void mcp23S17_init(void) {
     spi_write(IODIRA);
     spi_write(current_GPIOA);
     set_cs_high();
+    // set pull-up resistor for GPIOA - port 0-3
+    set_cs_low();
+    spi_write(0x40);
+    spi_write(GPPUA);
+    spi_write(0x0F);
+    set_cs_high();
 }
 
 void mcp23S17_conf_pin(uint8_t pin, uint8_t mode) {
@@ -52,8 +58,13 @@ uint8_t mcp23S17_write_pin(uint8_t pin, uint8_t data, uint8_t mode) {
     set_cs_high();
 
     if(mode == READ) {
-        return (b &= (1 << pin) >> pin);
+        return (b >> pin) & 1;
     }
     return (uint8_t)0;
+}
+
+void mcp23S17_invert_pin(uint8_t pin) {
+    uint8_t current = mcp23S17_write_pin(pin, 0, READ);
+    mcp23S17_write_pin(pin, !current, WRITE);
 }
 

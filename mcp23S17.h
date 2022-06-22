@@ -13,7 +13,7 @@
 #define INTCONB    0x14
 #define IOCON1     0x05
 #define IOCON2     0x15
-#define GPPUA      0x06
+#define GPPUA      0x0C
 #define GPPUB      0x16
 #define INTFA      0x07
 #define INTFB      0x17
