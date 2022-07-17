@@ -1,18 +1,17 @@
 /**************************************************************************//**
  * @file     LPC17xx.h
- * @brief    CMSIS Cortex-M3 Core Peripheral Access Layer Header File for 
+ * @brief    CMSIS Cortex-M3 Core Peripheral Access Layer Header File for
  *           NXP LPC17xx Device Series
  * @version: V1.09
  * @date:    17. March 2010
-
  *
  * @note
  * Copyright (C) 2009 ARM Limited. All rights reserved.
  *
  * @par
- * ARM Limited (ARM) is supplying this software for use with Cortex-M 
- * processor based microcontrollers.  This file can be freely distributed 
- * within development tools that are supporting such ARM based processors. 
+ * ARM Limited (ARM) is supplying this software for use with Cortex-M
+ * processor based microcontrollers.  This file can be freely distributed
+ * within development tools that are supporting such ARM based processors.
  *
  * @par
  * THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
@@ -20,9 +19,7 @@
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE.
  * ARM SHALL NOT, IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR
  * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
- *
  ******************************************************************************/
-
 
 #ifndef __LPC17xx_H__
 #define __LPC17xx_H__
@@ -33,8 +30,7 @@
  * ==========================================================================
  */
 
-typedef enum IRQn
-{
+typedef enum IRQn {
 /******  Cortex-M3 Processor Exceptions Numbers ***************************************************/
   NonMaskableInt_IRQn           = -14,      /*!< 2 Non Maskable Interrupt                         */
   MemoryManagement_IRQn         = -12,      /*!< 4 Cortex-M3 Memory Management Interrupt          */
@@ -44,7 +40,6 @@ typedef enum IRQn
   DebugMonitor_IRQn             = -4,       /*!< 12 Cortex-M3 Debug Monitor Interrupt             */
   PendSV_IRQn                   = -2,       /*!< 14 Cortex-M3 Pend SV Interrupt                   */
   SysTick_IRQn                  = -1,       /*!< 15 Cortex-M3 System Tick Interrupt               */
-
 /******  LPC17xx Specific Interrupt Numbers *******************************************************/
   WDT_IRQn                      = 0,        /*!< Watchdog Timer Interrupt                         */
   TIMER0_IRQn                   = 1,        /*!< Timer0 Interrupt                                 */
@@ -83,7 +78,6 @@ typedef enum IRQn
   CANActivity_IRQn              = 34,       /* CAN Activity interrupt                             */
 } IRQn_Type;
 
-
 /*
  * ==========================================================================
  * ----------- Processor and Core Peripheral Section ------------------------
@@ -95,22 +89,19 @@ typedef enum IRQn
 #define __NVIC_PRIO_BITS          5         /*!< Number of Bits used for Priority Levels          */
 #define __Vendor_SysTickConfig    0         /*!< Set to 1 if different SysTick Config is used     */
 
-
 #include "core_cm3.h"                       /* Cortex-M3 processor and core peripherals           */
 #include "system_LPC17xx.h"                 /* System Header                                      */
-
 
 /******************************************************************************/
 /*                Device Specific Peripheral registers structures             */
 /******************************************************************************/
 
-#if defined ( __CC_ARM   )
+#if defined (__CC_ARM)
 #pragma anon_unions
 #endif
 
 /*------------- System Control (SC) ------------------------------------------*/
-typedef struct
-{
+typedef struct {
   __IO uint32_t FLASHCFG;               /* Flash Accelerator Module           */
        uint32_t RESERVED0[31];
   __IO uint32_t PLL0CON;                /* Clocking and Power Control         */
@@ -150,8 +141,7 @@ typedef struct
  } LPC_SC_TypeDef;
 
 /*------------- Pin Connect Block (PINCON) -----------------------------------*/
-typedef struct
-{
+typedef struct {
   __IO uint32_t PINSEL0;
   __IO uint32_t PINSEL1;
   __IO uint32_t PINSEL2;
@@ -183,8 +173,7 @@ typedef struct
 } LPC_PINCON_TypeDef;
 
 /*------------- General Purpose Input/Output (GPIO) --------------------------*/
-typedef struct
-{
+typedef struct {
   union {
     __IO uint32_t FIODIR;
     struct {
@@ -253,8 +242,7 @@ typedef struct
   };
 } LPC_GPIO_TypeDef;
 
-typedef struct
-{
+typedef struct {
   __I  uint32_t IntStatus;
   __I  uint32_t IO0IntStatR;
   __I  uint32_t IO0IntStatF;
@@ -270,8 +258,7 @@ typedef struct
 } LPC_GPIOINT_TypeDef;
 
 /*------------- Timer (TIM) --------------------------------------------------*/
-typedef struct
-{
+typedef struct {
   __IO uint32_t IR;
   __IO uint32_t TCR;
   __IO uint32_t TC;
@@ -292,8 +279,7 @@ typedef struct
 } LPC_TIM_TypeDef;
 
 /*------------- Pulse-Width Modulation (PWM) ---------------------------------*/
-typedef struct
-{
+typedef struct {
   __IO uint32_t IR;
   __IO uint32_t TCR;
   __IO uint32_t TC;
@@ -320,8 +306,7 @@ typedef struct
 } LPC_PWM_TypeDef;
 
 /*------------- Universal Asynchronous Receiver Transmitter (UART) -----------*/
-typedef struct
-{
+typedef struct {
   union {
   __I  uint8_t  RBR;
   __O  uint8_t  THR;
@@ -352,8 +337,7 @@ typedef struct
   __IO uint32_t FIFOLVL;
 } LPC_UART_TypeDef;
 
-typedef struct
-{
+typedef struct {
   union {
   __I  uint8_t  RBR;
   __O  uint8_t  THR;
@@ -384,8 +368,7 @@ typedef struct
   __IO uint32_t FIFOLVL;
 } LPC_UART0_TypeDef;
 
-typedef struct
-{
+typedef struct {
   union {
   __I  uint8_t  RBR;
   __O  uint8_t  THR;
@@ -426,8 +409,7 @@ typedef struct
 } LPC_UART1_TypeDef;
 
 /*------------- Serial Peripheral Interface (SPI) ----------------------------*/
-typedef struct
-{
+typedef struct {
   __IO uint32_t SPCR;
   __I  uint32_t SPSR;
   __IO uint32_t SPDR;
@@ -437,8 +419,7 @@ typedef struct
 } LPC_SPI_TypeDef;
 
 /*------------- Synchronous Serial Communication (SSP) -----------------------*/
-typedef struct
-{
+typedef struct {
   __IO uint32_t CR0;
   __IO uint32_t CR1;
   __IO uint32_t DR;
@@ -452,8 +433,7 @@ typedef struct
 } LPC_SSP_TypeDef;
 
 /*------------- Inter-Integrated Circuit (I2C) -------------------------------*/
-typedef struct
-{
+typedef struct {
   __IO uint32_t I2CONSET;
   __I  uint32_t I2STAT;
   __IO uint32_t I2DAT;
@@ -473,8 +453,7 @@ typedef struct
 } LPC_I2C_TypeDef;
 
 /*------------- Inter IC Sound (I2S) -----------------------------------------*/
-typedef struct
-{
+typedef struct {
   __IO uint32_t I2SDAO;
   __IO uint32_t I2SDAI;
   __O  uint32_t I2STXFIFO;
@@ -492,8 +471,7 @@ typedef struct
 } LPC_I2S_TypeDef;
 
 /*------------- Repetitive Interrupt Timer (RIT) -----------------------------*/
-typedef struct
-{
+typedef struct {
   __IO uint32_t RICOMPVAL;
   __IO uint32_t RIMASK;
   __IO uint8_t  RICTRL;
@@ -502,8 +480,7 @@ typedef struct
 } LPC_RIT_TypeDef;
 
 /*------------- Real-Time Clock (RTC) ----------------------------------------*/
-typedef struct
-{
+typedef struct {
   __IO uint8_t  ILR;
        uint8_t  RESERVED0[7];
   __IO uint8_t  CCR;
@@ -560,8 +537,7 @@ typedef struct
 } LPC_RTC_TypeDef;
 
 /*------------- Watchdog Timer (WDT) -----------------------------------------*/
-typedef struct
-{
+typedef struct {
   __IO uint8_t  WDMOD;
        uint8_t  RESERVED0[3];
   __IO uint32_t WDTC;
@@ -572,8 +548,7 @@ typedef struct
 } LPC_WDT_TypeDef;
 
 /*------------- Analog-to-Digital Converter (ADC) ----------------------------*/
-typedef struct
-{
+typedef struct {
   __IO uint32_t ADCR;
   __IO uint32_t ADGDR;
        uint32_t RESERVED0;
@@ -591,16 +566,14 @@ typedef struct
 } LPC_ADC_TypeDef;
 
 /*------------- Digital-to-Analog Converter (DAC) ----------------------------*/
-typedef struct
-{
+typedef struct {
   __IO uint32_t DACR;
   __IO uint32_t DACCTRL;
   __IO uint16_t DACCNTVAL;
 } LPC_DAC_TypeDef;
 
 /*------------- Motor Control Pulse-Width Modulation (MCPWM) -----------------*/
-typedef struct
-{
+typedef struct {
   __I  uint32_t MCCON;
   __O  uint32_t MCCON_SET;
   __O  uint32_t MCCON_CLR;
@@ -634,8 +607,7 @@ typedef struct
 } LPC_MCPWM_TypeDef;
 
 /*------------- Quadrature Encoder Interface (QEI) ---------------------------*/
-typedef struct
-{
+typedef struct {
   __O  uint32_t QEICON;
   __I  uint32_t QEISTAT;
   __IO uint32_t QEICONF;
@@ -662,13 +634,11 @@ typedef struct
 } LPC_QEI_TypeDef;
 
 /*------------- Controller Area Network (CAN) --------------------------------*/
-typedef struct
-{
+typedef struct {
   __IO uint32_t mask[512];              /* ID Masks                           */
 } LPC_CANAF_RAM_TypeDef;
 
-typedef struct                          /* Acceptance Filter Registers        */
-{
+typedef struct {                         /* Acceptance Filter Registers        */
   __IO uint32_t AFMR;
   __IO uint32_t SFF_sa;
   __IO uint32_t SFF_GRP_sa;
@@ -682,15 +652,13 @@ typedef struct                          /* Acceptance Filter Registers        */
   __IO uint32_t FCANIC1;
 } LPC_CANAF_TypeDef;
 
-typedef struct                          /* Central Registers                  */
-{
+typedef struct {                         /* Central Registers                  */
   __I  uint32_t CANTxSR;
   __I  uint32_t CANRxSR;
   __I  uint32_t CANMSR;
 } LPC_CANCR_TypeDef;
 
-typedef struct                          /* Controller Registers               */
-{
+typedef struct {                         /* Controller Registers               */
   __IO uint32_t MOD;
   __O  uint32_t CMR;
   __IO uint32_t GSR;
@@ -718,8 +686,7 @@ typedef struct                          /* Controller Registers               */
 } LPC_CAN_TypeDef;
 
 /*------------- General Purpose Direct Memory Access (GPDMA) -----------------*/
-typedef struct                          /* Common Registers                   */
-{
+typedef struct {                         /* Common Registers                   */
   __I  uint32_t DMACIntStat;
   __I  uint32_t DMACIntTCStat;
   __O  uint32_t DMACIntTCClear;
@@ -746,8 +713,7 @@ typedef struct                          /* Channel Registers                  */
 } LPC_GPDMACH_TypeDef;
 
 /*------------- Universal Serial Bus (USB) -----------------------------------*/
-typedef struct
-{
+typedef struct {
   __I  uint32_t HcRevision;             /* USB Host Registers                 */
   __IO uint32_t HcControl;
   __IO uint32_t HcCommandStatus;
@@ -773,7 +739,6 @@ typedef struct
   __IO uint32_t HcRhPortStatus2;
        uint32_t RESERVED0[40];
   __I  uint32_t Module_ID;
-
   __I  uint32_t OTGIntSt;               /* USB On-The-Go Registers            */
   __IO uint32_t OTGIntEn;
   __O  uint32_t OTGIntSet;
@@ -781,32 +746,26 @@ typedef struct
   __IO uint32_t OTGStCtrl;
   __IO uint32_t OTGTmr;
        uint32_t RESERVED1[58];
-
   __I  uint32_t USBDevIntSt;            /* USB Device Interrupt Registers     */
   __IO uint32_t USBDevIntEn;
   __O  uint32_t USBDevIntClr;
   __O  uint32_t USBDevIntSet;
-
   __O  uint32_t USBCmdCode;             /* USB Device SIE Command Registers   */
   __I  uint32_t USBCmdData;
-
   __I  uint32_t USBRxData;              /* USB Device Transfer Registers      */
   __O  uint32_t USBTxData;
   __I  uint32_t USBRxPLen;
   __O  uint32_t USBTxPLen;
   __IO uint32_t USBCtrl;
   __O  uint32_t USBDevIntPri;
-
   __I  uint32_t USBEpIntSt;             /* USB Device Endpoint Interrupt Regs */
   __IO uint32_t USBEpIntEn;
   __O  uint32_t USBEpIntClr;
   __O  uint32_t USBEpIntSet;
   __O  uint32_t USBEpIntPri;
-
   __IO uint32_t USBReEp;                /* USB Device Endpoint Realization Reg*/
   __O  uint32_t USBEpInd;
   __IO uint32_t USBMaxPSize;
-
   __I  uint32_t USBDMARSt;              /* USB Device DMA Registers           */
   __O  uint32_t USBDMARClr;
   __O  uint32_t USBDMARSet;
@@ -833,25 +792,27 @@ typedef struct
   __I  uint32_t I2C_RX;                 /* USB OTG I2C Registers              */
   __O  uint32_t I2C_TX;
   };
+
   __I  uint32_t I2C_STS;
   __IO uint32_t I2C_CTL;
   __IO uint32_t I2C_CLKHI;
   __O  uint32_t I2C_CLKLO;
-       uint32_t RESERVED5[824];
+  uint32_t RESERVED5[824];
 
   union {
   __IO uint32_t USBClkCtrl;             /* USB Clock Control Registers        */
   __IO uint32_t OTGClkCtrl;
   };
+
   union {
   __I  uint32_t USBClkSt;
   __I  uint32_t OTGClkSt;
   };
+
 } LPC_USB_TypeDef;
 
 /*------------- Ethernet Media Access Controller (EMAC) ----------------------*/
-typedef struct
-{
+typedef struct {
   __IO uint32_t MAC1;                   /* MAC Registers                      */
   __IO uint32_t MAC2;
   __IO uint32_t IPGT;
@@ -979,7 +940,6 @@ typedef struct
 #define LPC_GPIO2_BASE        (LPC_GPIO_BASE + 0x00040)
 #define LPC_GPIO3_BASE        (LPC_GPIO_BASE + 0x00060)
 #define LPC_GPIO4_BASE        (LPC_GPIO_BASE + 0x00080)
-
 
 /******************************************************************************/
 /*                         Peripheral declaration                             */

@@ -1,12 +1,10 @@
-
-
 CC=avr-gcc
 
-FLAGS=   -O2 -Wall -mcall-prologues -mmcu=atmega328p -DF_CPU=16000000UL 
+FLAGS=   -O2 -Wall -mcall-prologues -mmcu=atmega328p -DF_CPU=16000000UL
 
 LINKER= avr-objcopy
 
-UPLOADER=avrdude 
+UPLOADER=avrdude
 
 testa_nrf24.hex: finalR.o finalT.o
 	$(LINKER)  -O ihex finalR.o testaR_nrf24.hex
@@ -24,16 +22,14 @@ testaT_nrf24.o: testaT_nrf24.c delay.h  nrf24.o   uart.o spi.o digital.o
 testaR_nrf24.o: testaR_nrf24.c delay.h  nrf24.o   uart.o spi.o digital.o
 	$(CC) $(FLAGS) testaR_nrf24.c -c
 
-	
+
 spi.o:	spi.c delay.h digital.o spi.h
 	$(CC) $(FLAGS) spi.c -c
 
 nrf24.o:	 spi.o delay.h  nrf24.c nrf24.h
 	$(CC) $(FLAGS) nrf24.c -c
 
-
-
-uart.o: uart.c 
+uart.o: uart.c
 	$(CC) $(FLAGS) uart.c -c
 
 digital.o: digital.c digital.h
