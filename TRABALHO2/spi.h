@@ -1,13 +1,25 @@
 
-#ifndef _SPI_
-#define _SPI_
 #include <inttypes.h>
 
+#ifndef __SPI__
+#define __SPI__
 
-void    spi_habilita (void);
-void    spi_desabilita();
-void    spi_configura (uint8_t pino_cs, uint8_t pino_miso, uint8_t pino_mosi, uint8_t pino_sck); 
-uint8_t spi_write (uint8_t dado);
+class SPI {
+
+	private:
+		uint8_t cs, miso, mosi, sck;
+		void delay (void);
+		
+	public:
+		void     init ( uint8_t MISO, uint8_t MOSI, uint8_t SCK, uint8_t CS); 
+		uint8_t  write (uint8_t valor);
+		void     start (void);
+		void     stop (void);
+
+};
+
+extern SPI spi;
+
+
 
 #endif
-

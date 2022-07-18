@@ -1,6 +1,6 @@
 GCC_BIN =  /usr/bin/X11/
 PROJECT = main
-OBJECTS = system_LPC17xx.o startup_LPC17xx.o uart.o  interrupcao_externa.o nrf24.o spi.o testa_nrf24.o digital.o delay.o
+OBJECTS = system_LPC17xx.o startup_LPC17xx.o delay.o uart.o radio.o main.o digital.o spi.o
 SYS_OBJECTS = 
 INCLUDE_PATHS = -I. -I./LPC1768 
 LIBRARY_PATHS = 
@@ -18,7 +18,7 @@ OBJCOPY = $(GCC_BIN)arm-none-eabi-objcopy
 CCLOCAL = gcc
 
 CPU = -mcpu=cortex-m3 -mthumb
-CC_FLAGS = $(CPU) -D_DEBUG_ -c -fno-common -fmessage-length=0 -Wall -fno-exceptions -ffunction-sections -fdata-sections -g 
+CC_FLAGS = $(CPU) -c -fno-common -fmessage-length=0 -Wall -fno-exceptions -ffunction-sections -fdata-sections -g 
 CC_SYMBOLS = -DTARGET_LPC1769 -DTOOLCHAIN_GCC_ARM -DNDEBUG -D__CORTEX_M3
 
 LD_FLAGS = -mcpu=cortex-m3 -mthumb -Wl,--gc-sections,-Map=$(PROJECT).map,--cref 
@@ -26,12 +26,8 @@ LD_SYS_LIBS = -lc -lgcc -lnosys
 
 all: $(PROJECT).bin
 
-flash:
-	sudo lpc21isp -control -bin main.bin /dev/ttyUSB0 115200 12000
-
-
 clean:
-	rm -f *~ $(PROJECT).bin $(PROJECT).elf $(addprefix $(BUILD_DIR), $(OBJECTS)) $(PROJECT).map
+	rm -f *~ $(PROJECT).hex $(PROJECT).bin $(PROJECT).elf $(addprefix $(BUILD_DIR), $(OBJECTS)) $(PROJECT).map
 	rmdir $(BUILD_DIR)
 
 .s.o:
@@ -44,7 +40,7 @@ clean:
 
 .cpp.o:
 	mkdir -p $(BUILD_DIR)
-	$(CPP) $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu++98 $(INCLUDE_PATHS) -o $(addprefix $(BUILD_DIR), $@) $<
+	$(CPP) $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu++11 $(INCLUDE_PATHS) -o $(addprefix $(BUILD_DIR), $@) $<
 
 # This is needed for NXP Cortex M devices
 nxpsum:

@@ -4,10 +4,13 @@
 #define ST_CTRL     (*((volatile unsigned long*)0xE000E010)) //page 783
 volatile unsigned long sysTickCounter;
 
+extern "C"
 void SysTick_Handler (void);
 
 
 //tratador de interrupcao
+
+extern "C"
 void SysTick_Handler(void) {
 	if (sysTickCounter != 0x00) sysTickCounter--;
 }
