@@ -20,10 +20,6 @@
 
 
 
-
-
-#define modo_receptor 1
-
 int main(void)
 {
 	SystemInit();
@@ -34,35 +30,9 @@ int main(void)
 	printf("Testando\n");
 
 	radio.configura();
+	printf("Retorno = %d\n ",radio.testa());
 
-	// modo receptor	
-	
-	if (modo_receptor)
-	{
-		radio.modoRX();
-		int qtd;
-		while (1)
-		{
-			if (radio.temMensagem(BLOQ) )
-			{
-				qtd=radio.leMensagem(buffer);
-				buffer[8] = 0;
-				printf("buffer=%s\n",buffer);
-			}
-		}
-		
-	}
-	else
-	{
-		while (1)
-		{
-			strcpy((char *) buffer,"oi mundo");
-			radio.enviaMensagem(buffer, 8);
-			delay_ms(2000);
-		}
-	}
-	
-
+	while(1);
 
 	return 0;
 }

@@ -43,6 +43,13 @@ void RADIO::configura (void)
 	delay_ms(10);
 	
 }
+
+uint8_t RADIO::testa(void)
+{
+	uint8_t lido;
+	leRegistrador (STATUS, &lido, 1);
+	return lido;
+}
 void RADIO::modoRX(void)
 {
 	uint8_t buffer[10];
