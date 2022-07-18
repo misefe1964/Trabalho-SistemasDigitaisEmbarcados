@@ -1,10 +1,7 @@
-
-
-
 // Testa o acesso ao protocolo i2c enviado caracteres para serem gravados em posicoes sequenciais da memoria 24c64 EEPROM
-// para compilar:  
+// para compilar:
 //                    make
-// para gravar na SystemInit();placa (usando o bootloader): 
+// para gravar na SystemInit();placa (usando o bootloader):
 //                   lpc21isp -control -bin main.bin /dev/ttyUSB0 115200 12000
 //
 // para gravar na placa (usando o JTAG)
@@ -23,29 +20,19 @@
 #include "nrf24.h"
 #include "delay.h"
 
-int main ( void ) 
-{
+int main(void) {
 	uint8_t buffer[20];
+
 	uart_init();
-
 	nrf24_init();
-
-	
 	printf("Rodando receptor...\n");
 
-
-	while(1)
-	{
-		
-
+	while(1) {
 		//codigo para o receptor
 		nrf24_recebe(buffer);
 		buffer[TAMANHO_MSG]=0;
-		printf("recebido=%s\n",(char *)buffer);
-		
+		printf("recebido=%s\n",(char*)buffer);
 	}
 
 	return 0 ;
 }
-
-

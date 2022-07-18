@@ -1,8 +1,7 @@
 #ifndef _DIGITAL_
 #define _DIGITAL_
 
-
-#include <inttypes.h> 
+#include <inttypes.h>
 #include <avr/io.h>
 
 #define HIGH 1U
@@ -19,7 +18,6 @@
 #define PIN_5 5
 #define PIN_6 6
 #define PIN_7 7
-
 #define PIN_8 8
 #define PIN_9 9
 #define PIN_10 10
@@ -28,7 +26,6 @@
 #define PIN_13 13
 #define PIN_14 14 // usados pelo cristal
 #define PIN_15 15 // usados pelo cristal
-
 #define PIN_16 16 // C0
 #define PIN_17 17 // C1
 #define PIN_18 18 // C2
@@ -45,14 +42,8 @@
 #define A5 PIN_21
 #define A6 PIN_22 // usado pelo RESET
 
-
-
-void digitalWrite( uint8_t pino, uint8_t valor);
+void digitalWrite(uint8_t pino, uint8_t valor);
 unsigned char digitalRead (int pino);
 void pinMode (int8_t pino, int8_t valor);
 
-
 #endif
-
-
-
