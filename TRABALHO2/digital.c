@@ -1,77 +1,69 @@
+#include "LPC17xx.h"
 #include "digital.h"
 
-void descobre_porta(int8_t pino, int8_t *porta, int8_t *bit) {
-  if (pino <=7) {
-    *porta = 1;
-    *bit   = pino;
-  } else {
-    if (pino <=15) {
-      *porta = 0;
-      *bit   = pino - 8;
-    } else {
-      *porta = 2;
-      *bit   = pino - 16;
-    }
-  }
+
+
+static LPC_GPIO_TypeDef   (* const LPC_GPIO[5] ) = { LPC_GPIO0, LPC_GPIO1, LPC_GPIO2, LPC_GPIO3, LPC_GPIO4  };
+
+
+__IO uint32_t * LPC_MODE[10];
+
+
+void pinMode( uint16_t portbit, uint8_t bitVal )
+{
+	uint8_t baixa=1, modo;
+	uint32_t c;
+
+	if ( (31&portbit) <= 15) baixa=0;
+	modo = 2* (portbit>>5) + baixa;
+	if (modo %2 )  	c = 3 << (2*  (  (31&portbit) - 16)  );
+	else  			c = 3 << (2*(31&portbit));
+   
+	LPC_MODE[0] = &(LPC_PINCON->PINMODE0);
+	LPC_MODE[1] = &(LPC_PINCON->PINMODE1);
+	LPC_MODE[2] = &(LPC_PINCON->PINMODE2);
+	LPC_MODE[3] = &(LPC_PINCON->PINMODE3);
+	LPC_MODE[4] = &(LPC_PINCON->PINMODE4);
+	LPC_MODE[5] = &(LPC_PINCON->PINMODE5);
+	LPC_MODE[6] = &(LPC_PINCON->PINMODE6);
+	LPC_MODE[7] = &(LPC_PINCON->PINMODE7);
+	LPC_MODE[8] = &(LPC_PINCON->PINMODE8);
+	LPC_MODE[9] = &(LPC_PINCON->PINMODE9);
+
+	switch (bitVal)
+	{
+		case INPUT_PULLUP:
+			(*LPC_MODE[modo]) = (*LPC_MODE[modo]) &~c;
+			break;
+		case INPUT_PULLDOWN:
+			*(LPC_MODE[modo]) = (*LPC_MODE[modo]) | c;
+ 			break;
+		case OUTPUT:
+			LPC_GPIO[(uint8_t)(portbit>>5)]->FIODIR |= (1<<(31&portbit));
+			break;
+		case INPUT:
+			LPC_GPIO[portbit>>5]->FIODIR &= ~(1<<(31&portbit));
+	}
+  
 }
 
-void pinMode(int8_t pino, int8_t valor) {
-  int8_t porta, bit;
-
-  descobre_porta(pino, &porta, &bit);
-  valor = valor & 1;
-
-  switch(porta) {
-    case 0:
-    if (valor==INPUT) DDRB=DDRB & ~(_BV(bit));
-    else DDRB = DDRB | _BV(bit);
-    break;
-    case 1:
-    if (valor==INPUT) DDRD=DDRD & ~(_BV(bit));
-    else DDRD = DDRD | _BV(bit);
-    break;
-    case 2:
-    if (valor==INPUT) DDRC=DDRC & ~(_BV(bit));
-    else DDRC= DDRC | _BV(bit);
-    break;
-  }
+void digitalWrite( uint16_t portbit, uint8_t valor )
+{
+	valor = valor & 1;
+    LPC_GPIO[portbit>>5]->FIOMASK = ~(1<<(31&portbit));
+	if (valor == LOW)  LPC_GPIO[(uint8_t)(portbit>>5)]->FIOCLR = (1<<(31&portbit));
+    else LPC_GPIO[(uint8_t)(portbit>>5)]->FIOSET = (1<<(31&portbit));
 }
 
-unsigned char digitalRead(int pino) {
-  int8_t porta, bit;
-  descobre_porta(pino, &porta, &bit);
 
-  switch(porta) {
-    case 0:
-    if (PINB & _BV(bit)) return 1;
-    break;
-    case 1:
-    if (PIND & _BV(bit)) return 1;
-    break;
-    case 2:
-    if (PINC & _BV(bit)) return 1;
-    break;
-  }
-  return 0;
+uint8_t digitalRead (uint16_t portbit)
+{
+    uint32_t val;
+
+    LPC_GPIO[portbit>>5]->FIOMASK = ~(1<<(31&portbit));
+    val = LPC_GPIO[portbit>>5]->FIOPIN;
+    val = val >> (31&portbit);
+    LPC_GPIO[portbit>>5]->FIOMASK = 0x00000000;
+    return (uint8_t)(val& 1);
 }
 
-void digitalWrite(uint8_t pino, uint8_t valor) {
-  int8_t porta, bit;
-  descobre_porta(pino, &porta, &bit);
-  valor = valor & 1;
-
-  switch(porta) {
-    case 0:
-      if (valor==HIGH) PORTB=PORTB | _BV(bit);
-      else PORTB=PORTB & ~(_BV(bit));
-      break;
-    case 1:
-      if (valor==HIGH) PORTD=PORTD| _BV(bit);
-      else PORTD=PORTD & ~(_BV(bit));
-      break;
-    case 2:
-      if (valor==HIGH) PORTC=PORTC| _BV(bit);
-      else PORTC=PORTC & ~(_BV(bit));
-      break;
-  }
-}
