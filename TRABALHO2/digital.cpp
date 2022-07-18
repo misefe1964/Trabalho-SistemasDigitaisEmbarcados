@@ -3,15 +3,12 @@
 
  DIGITAL digital;
 
-void DIGITAL::digitalWrite(uint8_t portabit, uint8_t valor)
-{
+void DIGITAL::digitalWrite(uint8_t portabit, uint8_t valor) {
 	uint8_t porta = portabit >> 5;
     uint8_t bit   = portabit & 31;
 
-	if (valor == HIGH)
-	{
-		switch (porta)
-		{
+	if (valor == HIGH) {
+		switch (porta) {
 			case 0:
 				 LPC_GPIO0->FIOSET |= (1 << bit); 
 				break;
@@ -29,10 +26,9 @@ void DIGITAL::digitalWrite(uint8_t portabit, uint8_t valor)
 				break;
 		}
 	}
-	else
-	{
-		switch (porta)
-		{
+
+	else {
+		switch (porta) {
 			case 0:
 				 LPC_GPIO0->FIOCLR |= (1 << bit); 
 				break;
@@ -50,21 +46,13 @@ void DIGITAL::digitalWrite(uint8_t portabit, uint8_t valor)
 				break;
 		}
 	}
-
-
-
-
-
-
 }
 
-uint8_t DIGITAL::digitalRead(uint8_t portabit )
-{
+uint8_t DIGITAL::digitalRead(uint8_t portabit ) {
      uint8_t porta = portabit >> 5;
      uint8_t bit   = portabit & 31;
 
-     switch (porta)
-		{
+     switch (porta) {
 			case 0:
 				 return (((LPC_GPIO0->FIOPIN) >> bit) & 1); 
 				break;
@@ -82,21 +70,17 @@ uint8_t DIGITAL::digitalRead(uint8_t portabit )
 				break;
 			default:return 0;
 		}
-
 }
 
 
 
-void DIGITAL::pinMode(uint8_t portabit, uint8_t modo)
-{
+void DIGITAL::pinMode(uint8_t portabit, uint8_t modo) {
 
 	uint8_t porta = portabit >> 5;
     uint8_t bit   = portabit & 31;
 
-	if (modo == OUTPUT)
-	{
-		switch (porta)
-		{
+	if (modo == OUTPUT) {
+		switch (porta) {
 			case 0:
 				 LPC_GPIO0->FIODIR |= (1 << bit); 
 				break;
@@ -114,42 +98,24 @@ void DIGITAL::pinMode(uint8_t portabit, uint8_t modo)
 				break;
 		}
 	}
-	else 
-	{
-		switch (porta)
-		{
+	else {
+		switch (porta) {
 			case 0:
-				 LPC_GPIO0->FIODIR &= ~(1 << bit); 
+                LPC_GPIO0->FIODIR &= ~(1 << bit); 
 				break;
 			case 1:
-				 LPC_GPIO1->FIODIR &= ~(1 << bit); 
+				LPC_GPIO1->FIODIR &= ~(1 << bit); 
 				break;
 			case 2:
-				 LPC_GPIO2->FIODIR &= ~(1 << bit); 
+				LPC_GPIO2->FIODIR &= ~(1 << bit); 
 				break;
 			case 3:
-				 LPC_GPIO3->FIODIR &= ~(1 << bit); 
+				LPC_GPIO3->FIODIR &= ~(1 << bit); 
 				break;
 			case 4:
-				 LPC_GPIO4->FIODIR &= ~(1 << bit); 
+				LPC_GPIO4->FIODIR &= ~(1 << bit); 
 				break;
 		}
 	}
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
