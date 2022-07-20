@@ -1,25 +1,23 @@
+#ifndef _SPI_
+#define _SPI_
+#include "LPC17xx.h"
+#include "misc.h"
+#include "digital.h"
+#include "delay.h"
 
-#include <inttypes.h>
+#define SCK  PIN(1, 26)
+#define CS   PIN(1, 25)
+#define MISO PIN(1, 24)
+#define MOSI PIN(1, 23)
 
-#ifndef __SPI__
-#define __SPI__
+#define SCK_Freq 4000000
 
-class SPI {
+// spi functions
+uint8_t spi_write(uint8_t byte);
 
-	private:
-		uint8_t cs, miso, mosi, sck;
-		void delay (void);
-		
-	public:
-		void     init ( uint8_t MISO, uint8_t MOSI, uint8_t SCK, uint8_t CS); 
-		uint8_t  write (uint8_t valor);
-		void     start (void);
-		void     stop (void);
+void spi_configura();
 
-};
-
-extern SPI spi;
-
-
+void set_cs_low();
+void set_cs_high();
 
 #endif
