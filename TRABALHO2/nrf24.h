@@ -2,13 +2,13 @@
 #define _NRF24_
 #include <inttypes.h>
 
-#define TAMANHO_MSG 8
-
+#define TAMANHO_MSG 32
 // COMANDOS
 #define FLUSH_TX     0xE1
 #define FLUSH_RX      0xE2
 #define W_TX_PAYLOAD 0xA0
 #define R_RX_PAYLOAD 0x61
+
 #define FIFO_STATUS 0x17
 
 // definicoes dos comandos
@@ -23,6 +23,11 @@
 #define TX_ADDR    0x10
 #define RX_PW_P0   0x11
 #define EN_RXADDR  0x02
+#define FEATURE    0x1D
+#define DYNPD      0x1C
+#define EN_RX_ADDR 0x02
+
+
 #define MASK_RX_DR  6
 #define MASK_TX_DS  5
 #define MASK_MAX_RT 4
@@ -48,7 +53,7 @@
 #define PLL_LOCK    4
 #define RF_DR       3
 #define RF_PWR      1
-#define LNA_HCURR   0
+#define LNA_HCURR   0        
 #define RX_DR       6
 #define TX_DS       5
 #define MAX_RT      4
@@ -62,15 +67,16 @@
 #define RX_FULL     1
 #define RX_EMPTY    0
 
+
+void    nrf24_init (void);
+uint8_t le_registrador (uint8_t reg);
+void    nrf24_le_registrador (uint8_t reg, uint8_t qtd, uint8_t vet[]);
+void    nrf24_escreve_registrador (uint8_t reg, uint8_t qtd, uint8_t vet[]);
+void    nrf24_transmite(uint8_t buffer[]);
+void    nrf24_recebe(uint8_t buffer[]);
+
 // definicoes dos registradores
 #define STATUS 7
 #define CONFIG 0
-
-void nrf24_init(void);
-uint8_t le_registrador(uint8_t reg);
-void nrf24_le_registrador(uint8_t reg, uint8_t qtd, uint8_t vet[]);
-void nrf24_escreve_registrador(uint8_t reg, uint8_t qtd, uint8_t vet[]);
-void nrf24_transmite(uint8_t buffer[]);
-void nrf24_recebe(uint8_t buffer[]);
 
 #endif

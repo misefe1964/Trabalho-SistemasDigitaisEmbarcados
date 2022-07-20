@@ -1,45 +1,83 @@
-#include <avr/io.h>
+
+
+
 #include "uart.h"
 
-#ifndef F_CPU
-#define F_CPU 16000000UL
-#endif
 
-#ifndef BAUD
-#define BAUD 9600
-#endif
 
-#include <util/setbaud.h>
 
-/* http://www.cs.mun.ca/~rod/Winter2007/4723/notes/serial/serial.html */
-FILE uart_output = FDEV_SETUP_STREAM(uart_putchar, NULL, _FDEV_SETUP_WRITE);
-FILE uart_input = FDEV_SETUP_STREAM(NULL, uart_getchar, _FDEV_SETUP_READ);
+int _write (int fd, const void *buf, size_t count)
+{
+	uint8_t x;
+	char *vet = (char *) buf;
 
-void uart_init(void) {
-  UBRR0H = UBRRH_VALUE;
-  UBRR0L = UBRRL_VALUE;
-  stdout = &uart_output;
-  stdin  = &uart_input;
-
-  #if USE_2X
-  UCSR0A |= _BV(U2X0);
-  #else
-  UCSR0A &= ~(_BV(U2X0));
-  #endif
-
-  UCSR0C = _BV(UCSZ01) | _BV(UCSZ00); /* 8-bit data */
-  UCSR0B = _BV(RXEN0)  | _BV(TXEN0);  /* Enable RX and TX */
+	for (x=0;x<count;x++) UART0_Sendchar(  vet[x]);
+	return count;
 }
 
-void uart_putchar(char c, FILE *stream) {
-  if (c == '\n') {
-    uart_putchar('\r', stream);
-  }
-  loop_until_bit_is_set(UCSR0A, UDRE0);
-  UDR0 = c;
+int _read (int fd, const void *buf, size_t count)
+{
+	uint8_t contador=0;
+	char *vet = (char *) buf;
+	char letra;
+
+
+	while (contador < count)
+	{
+		letra = UART0_Getchar();
+		if (letra=='\n') break;
+		vet[contador]=letra;
+		contador++;	
+	}
+	vet[contador]='\n';
+	return contador+1;
 }
 
-char uart_getchar(FILE *stream) {
-  loop_until_bit_is_set(UCSR0A, RXC0);
-  return UDR0;
+// ***********************
+// Function to set up UART
+void UART0_Init(int baudrate)
+{
+	int pclk;
+	unsigned long int Fdiv;
+
+	// PCLK_UART0 is being set to 1/4 of SystemCoreClock
+	pclk = SystemCoreClock / 4;	
+	
+	// Turn on power to UART0
+	LPC_SC->PCONP |=  PCUART0_POWERON;
+		
+	// Turn on UART0 peripheral clock
+	LPC_SC->PCLKSEL0 &= ~(PCLK_UART0_MASK);
+	LPC_SC->PCLKSEL0 |=  (0 << PCLK_UART0);		// PCLK_periph = CCLK/4
+	
+	// Set PINSEL0 so that P0.2 = TXD0, P0.3 = RXD0
+	LPC_PINCON->PINSEL0 &= ~0xf0;
+	LPC_PINCON->PINSEL0 |= ((1 << 4) | (1 << 6));
+	
+	LPC_UART0->LCR = 0x83;		// 8 bits, no Parity, 1 Stop bit, DLAB=1
+    Fdiv = ( pclk / 16 ) / baudrate ;	// Set baud rate
+    LPC_UART0->DLM = Fdiv / 256;							
+    LPC_UART0->DLL = Fdiv % 256;
+    LPC_UART0->LCR = 0x03;		// 8 bits, no Parity, 1 Stop bit DLAB = 0
+    LPC_UART0->FCR = 0x07;		// Enable and reset TX and RX FIFO
 }
+
+// ***********************
+// Function to send character over UART
+void UART0_Sendchar(char c)
+{
+	while( (LPC_UART0->LSR & LSR_THRE) == 0 );	// Block until tx empty
+	
+	LPC_UART0->THR = c;
+}
+
+// Function to get character from UART
+char UART0_Getchar()
+{
+	char c;
+	while( (LPC_UART0->LSR & LSR_RDR) == 0 );  // Nothing received so just block 	
+	c = LPC_UART0->RBR; // Read Receiver buffer register
+	return c;
+}
+
+

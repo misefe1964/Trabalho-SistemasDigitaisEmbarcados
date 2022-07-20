@@ -1,10 +1,10 @@
-#ifndef _DELAY_
-#define _DELAY_
-
+#ifndef __DELAY__
+#define __DELAY__
 #include <stdint.h>
-#include <util/delay.h>
 
-#define delay_ms(A) _delay_ms(A)
-#define delay_us(A) _delay_us(A)
+void delay_init(void);
+void delay_us(uint32_t n);
+void delay_ms(uint32_t n);
 
 #endif
+

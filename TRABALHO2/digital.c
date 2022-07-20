@@ -1,77 +1,29 @@
+
 #include "digital.h"
+#include "LPC17xx.h"
 
-void descobre_porta(int8_t pino, int8_t *porta, int8_t *bit) {
-  if (pino <=7) {
-    *porta = 1;
-    *bit   = pino;
-  } else {
-    if (pino <=15) {
-      *porta = 0;
-      *bit   = pino - 8;
-    } else {
-      *porta = 2;
-      *bit   = pino - 16;
-    }
-  }
+LPC_GPIO_TypeDef * vet[5]={LPC_GPIO0,LPC_GPIO1,LPC_GPIO2,LPC_GPIO3,LPC_GPIO4};
+
+void pinMode(uint8_t pb, uint8_t tipo) {
+	uint8_t porta = pb >> 5;
+	uint8_t bit = pb & 31;
+	if (tipo == OUTPUT) vet[porta]->FIODIR |= (1 << bit);
+	else vet[porta]->FIODIR &= (~(1 << bit));
 }
 
-void pinMode(int8_t pino, int8_t valor) {
-  int8_t porta, bit;
-
-  descobre_porta(pino, &porta, &bit);
-  valor = valor & 1;
-
-  switch(porta) {
-    case 0:
-    if (valor==INPUT) DDRB=DDRB & ~(_BV(bit));
-    else DDRB = DDRB | _BV(bit);
-    break;
-    case 1:
-    if (valor==INPUT) DDRD=DDRD & ~(_BV(bit));
-    else DDRD = DDRD | _BV(bit);
-    break;
-    case 2:
-    if (valor==INPUT) DDRC=DDRC & ~(_BV(bit));
-    else DDRC= DDRC | _BV(bit);
-    break;
-  }
+void digitalWrite(uint8_t pb, uint8_t valor) {
+	uint8_t porta = pb >> 5;
+	uint8_t bit = pb & 31;
+	
+	if (valor==HIGH)
+        vet[porta]->FIOSET = (1 << bit);
+	else 
+        vet[porta]->FIOCLR = (1 << bit);
 }
 
-unsigned char digitalRead(int pino) {
-  int8_t porta, bit;
-  descobre_porta(pino, &porta, &bit);
-
-  switch(porta) {
-    case 0:
-    if (PINB & _BV(bit)) return 1;
-    break;
-    case 1:
-    if (PIND & _BV(bit)) return 1;
-    break;
-    case 2:
-    if (PINC & _BV(bit)) return 1;
-    break;
-  }
-  return 0;
+uint8_t digitalRead(uint8_t pb) {
+    uint8_t porta = pb >> 5;
+	uint8_t bit = pb & 31;
+    return ( ( ( (vet[porta]->FIOPIN) >> bit) & 1) ) ;
 }
 
-void digitalWrite(uint8_t pino, uint8_t valor) {
-  int8_t porta, bit;
-  descobre_porta(pino, &porta, &bit);
-  valor = valor & 1;
-
-  switch(porta) {
-    case 0:
-      if (valor==HIGH) PORTB=PORTB | _BV(bit);
-      else PORTB=PORTB & ~(_BV(bit));
-      break;
-    case 1:
-      if (valor==HIGH) PORTD=PORTD| _BV(bit);
-      else PORTD=PORTD & ~(_BV(bit));
-      break;
-    case 2:
-      if (valor==HIGH) PORTC=PORTC| _BV(bit);
-      else PORTC=PORTC & ~(_BV(bit));
-      break;
-  }
-}

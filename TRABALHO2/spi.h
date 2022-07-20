@@ -1,10 +1,23 @@
 #ifndef _SPI_
 #define _SPI_
-#include <inttypes.h>
+#include "LPC17xx.h"
+#include "misc.h"
+#include "digital.h"
+#include "delay.h"
 
-void spi_habilita (void);
-void spi_desabilita();
-void spi_configura (uint8_t pino_cs, uint8_t pino_miso, uint8_t pino_mosi, uint8_t pino_sck);
-uint8_t spi_write (uint8_t dado);
+#define SCK  PIN(1, 26)
+#define CS   PIN(1, 25)
+#define MISO PIN(1, 24)
+#define MOSI PIN(1, 23)
+
+#define SCK_Freq 4000000
+
+// spi functions
+uint8_t spi_write(uint8_t byte);
+
+void spi_configura();
+
+void set_cs_low();
+void set_cs_high();
 
 #endif
