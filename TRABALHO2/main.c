@@ -15,7 +15,7 @@ uint8_t buffer[10];
 int modulo_receptor = 1
 
 void main {
-  if (modulo_receptor) {
+  if(modulo_receptor) {
     printf("Rodando receptor...\n");
     while(1) {
       //codigo para o receptor
