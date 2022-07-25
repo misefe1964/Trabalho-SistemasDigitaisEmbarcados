@@ -14,4 +14,3 @@ void digitalWrite(uint8_t pb, uint8_t valor);
 void pinMode (uint8_t pb, uint8_t tipo);
 
 #endif
-

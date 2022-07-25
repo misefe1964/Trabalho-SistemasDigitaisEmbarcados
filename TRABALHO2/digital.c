@@ -1,4 +1,3 @@
-
 #include "digital.h"
 #include "LPC17xx.h"
 
@@ -14,16 +13,15 @@ void pinMode(uint8_t pb, uint8_t tipo) {
 void digitalWrite(uint8_t pb, uint8_t valor) {
 	uint8_t porta = pb >> 5;
 	uint8_t bit = pb & 31;
-	
+
 	if (valor==HIGH)
-        vet[porta]->FIOSET = (1 << bit);
-	else 
-        vet[porta]->FIOCLR = (1 << bit);
+	vet[porta]->FIOSET = (1 << bit);
+	else
+	vet[porta]->FIOCLR = (1 << bit);
 }
 
 uint8_t digitalRead(uint8_t pb) {
-    uint8_t porta = pb >> 5;
+	uint8_t porta = pb >> 5;
 	uint8_t bit = pb & 31;
-    return ( ( ( (vet[porta]->FIOPIN) >> bit) & 1) ) ;
+	return ((((vet[porta]->FIOPIN) >> bit) & 1)) ;
 }
-
