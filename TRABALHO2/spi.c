@@ -5,7 +5,7 @@ void spi_configura() {
   pinMode(MISO,INPUT);
   pinMode(SCK,OUTPUT);
   pinMode(CS,OUTPUT);
-  set_cs_high();
+  spi_desabilita();
 }
 
 uint8_t spi_write(uint8_t byte) {
@@ -23,10 +23,10 @@ uint8_t spi_write(uint8_t byte) {
   return (valor);
 }
 
-void set_cs_low() {
-  digitalWrite(SSEL, LOW);
+void spi_habilita() {
+  digitalWrite(CS, LOW);
 }
 
-void set_cs_high() {
-  digitalWrite(SSEL, HIGH);
+void spi_desabilita() {
+  digitalWrite(CS, HIGH);
 }

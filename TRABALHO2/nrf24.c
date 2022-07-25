@@ -2,6 +2,7 @@
 #include "nrf24.h"
 #include "spi.h"
 #include "delay.h"
+#include "misc.h"
 #include <stdio.h>
 
 void modo_RX(void);

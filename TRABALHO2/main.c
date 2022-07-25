@@ -6,15 +6,15 @@
 #include "nrf24.h"
 #include "delay.h"
 
-SystemInit();
-delay_init();
-uart_init();
-nrf24_init();
-
 uint8_t buffer[10];
-int modulo_receptor = 1
+int modulo_receptor = 1;
 
-void main {
+int main(void) {
+    SystemInit();
+    delay_init();
+    UART0_Init(115200);
+    nrf24_init();
+
   if(modulo_receptor) {
     printf("Rodando receptor...\n");
     while(1) {
