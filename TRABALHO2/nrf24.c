@@ -1,4 +1,5 @@
 #include "digital.h"
+#include "uart.h"
 #include "nrf24.h"
 #include "spi.h"
 #include "delay.h"
@@ -66,6 +67,9 @@ void nrf24_init(void) {
 
 	parametros[0] = 0x00;
 	nrf24_escreve_registrador(EN_AA, 1, parametros);
+
+    parametros[0] = 0x00;
+	nrf24_escreve_registrador(EN_CRC, 0, parametros);
 
 	parametros[0] = 0x01;
 	nrf24_escreve_registrador(SETUP_AW, 1, parametros);
@@ -195,12 +199,16 @@ void nrf24_recebe(uint8_t buffer[]) {
 		spi_desabilita();
 		// limpa o flag de recepcao de pacote
 		valor=le_registrador(STATUS);
+        printf("valor de STATUS: %d\n", valor);
 		valor = valor | (1<<6);
 		nrf24_escreve_registrador (STATUS, 1, &valor);
+        printf("?????????????????????????????????\n");
 		CE_HIGH();
-		uint8_t crc = 0xff;
-		for (x=0;x<TAMANHO_MSG-1;x++)	crc=crc+buffer[x];
-		if (crc==buffer[TAMANHO_MSG-1]) return;
+        printf("!!!!!!!!!!!!\n");
+        return;
+		/* uint8_t crc = 0xff; */
+		/* for (x=0;x<TAMANHO_MSG-1;x++)	crc=crc+buffer[x]; */
+		/* if (crc==buffer[TAMANHO_MSG-1]) return; */
 	}
 }
 

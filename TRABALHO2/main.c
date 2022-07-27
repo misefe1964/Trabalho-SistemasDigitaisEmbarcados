@@ -6,7 +6,7 @@
 #include "nrf24.h"
 #include "delay.h"
 
-uint8_t buffer[10];
+uint8_t buffer[50];
 int modulo_receptor = 1;
 
 int main(void) {
@@ -20,6 +20,7 @@ int main(void) {
     while(1) {
       //codigo para o receptor
       nrf24_recebe(buffer);
+      printf("hello its me");
       buffer[TAMANHO_MSG]=0;
       printf("recebido=%s\n",(char*)buffer);
     }

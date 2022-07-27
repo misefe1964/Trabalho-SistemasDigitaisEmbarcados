@@ -15,10 +15,10 @@ uint8_t spi_write(uint8_t byte) {
     bit = (byte >> (7-x)) & 1;
     digitalWrite(MOSI, bit);
     digitalWrite(SCK, HIGH);
-    delay_ms(5);
+    delay_us(50);
     valor = (valor << 1 | digitalRead(MISO));
     digitalWrite(SCK, LOW);
-    delay_ms(5);
+    delay_us(50);
   }
   return (valor);
 }
