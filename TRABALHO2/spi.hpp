@@ -5,10 +5,10 @@
 #ifndef __SPI__
 #define __SPI__
 
-#define MISO PIN1_00
-#define MOSI PIN4_29
-#define SCK  PIN4_28
-#define CS   PIN3_26
+#define MISO PIN1_24
+#define MOSI PIN1_23
+#define SCK  PIN1_26
+#define CS   PIN1_25
 
 class SPI {
 
