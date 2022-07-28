@@ -3,9 +3,6 @@
 
 #include <inttypes.h>
 
-
-
-
 #define CONFIG 0
 #define EN_AA  1
 #define EN_RXADDR 2
@@ -17,7 +14,6 @@
 #define RX_ADDR_P0 0x0A
 #define TX_ADDR 0x10
 #define RX_PW_P0 0x11
-
 
 #define TAM_MSG 8
 #define N_BLOQ 1

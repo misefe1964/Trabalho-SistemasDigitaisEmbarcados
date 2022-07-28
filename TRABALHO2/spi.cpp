@@ -6,11 +6,7 @@
 #include "spi.hpp"
 #include "delay.hpp"
 
-
-
-
-
-void SPI::init (uint8_t MISO, uint8_t MOSI, uint8_t SCK, uint8_t CS)
+void SPI::init ()
 {
 	miso = MISO;
 	mosi = MOSI;
@@ -47,12 +43,11 @@ uint8_t SPI::write (uint8_t valor)
 		delay_us(50);
 		digital.digitalWrite(sck, LOW);
 		//bit_resposta  = digital.digitalRead(miso);
-		
-		recebido = (recebido << 1) | bit_resposta; 
+
+		recebido = (recebido << 1) | bit_resposta;
 		delay_us(50);
 	}
 	return recebido;
 }
 
 SPI spi;
-

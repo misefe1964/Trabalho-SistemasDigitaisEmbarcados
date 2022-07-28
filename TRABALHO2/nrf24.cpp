@@ -26,7 +26,7 @@ void power_DOWN (void)
 
 	reg_config = le_registrador(CONFIG);
 
-	reg_config = reg_config & 0xFD; 
+	reg_config = reg_config & 0xFD;
 	nrf24_escreve_registrador(CONFIG,1,(uint8_t *)&reg_config);
 }
 void power_UP (void)
@@ -34,7 +34,7 @@ void power_UP (void)
 	uint8_t reg_config;
 
 	reg_config = le_registrador(CONFIG);
-	reg_config = reg_config | 0x02; 
+	reg_config = reg_config | 0x02;
 	nrf24_escreve_registrador(CONFIG,1,(uint8_t *)&reg_config);
 }
 void nrf24_init (void)
@@ -43,7 +43,7 @@ void nrf24_init (void)
 
 	// MISO, uint8_t MOSI, uint8_t SCK, uint8_t CS
 	_delay_ms(100);
-	spi.init (PIN1_00, PIN4_29, PIN4_28, PIN3_26);
+	spi.init();
 	pino_CE = PIN3_25;
 	digital.pinMode(pino_CE, OUTPUT);
 	CE_LOW();
@@ -52,29 +52,29 @@ void nrf24_init (void)
 	power_UP();
 	_delay_ms(3000);
 
-	limpa_FIFO();	
-	
-	
+	limpa_FIFO();
+
+
 	parametros[0] = 0;
     nrf24_escreve_registrador (DYNPD, 1, parametros);
-    
+
     		parametros[0] = 1;
         nrf24_escreve_registrador (EN_RX_ADDR, 1, parametros);
 
-    
+
 	parametros[0] = 0x01;
     nrf24_escreve_registrador (EN_RXADDR, 1, parametros);
 
 	parametros[0] = 0;
     nrf24_escreve_registrador (FEATURE, 1, parametros);
-    
+
 	parametros[0] = 0x00;
     nrf24_escreve_registrador (EN_AA, 1, parametros);
 
 	parametros[0] = 0x01;
     nrf24_escreve_registrador (SETUP_AW, 1, parametros);
-	
-	
+
+
 
 	parametros[0] = 0x6E;
     nrf24_escreve_registrador (RF_CH, 1, parametros);
@@ -89,7 +89,7 @@ void nrf24_init (void)
 	parametros[0] = 1;
 	parametros[1] = 1;
 	parametros[2] = 1;
-	
+
     nrf24_escreve_registrador (RX_ADDR_P0, 3, parametros);
 
 
@@ -103,48 +103,48 @@ void nrf24_init (void)
 
 	parametros[0] = 0x77;
     nrf24_escreve_registrador (CONFIG, 1, parametros);
-    
-    
-	
+
+
+
 	parametros[0]=0x11;
 	nrf24_escreve_registrador (FIFO_STATUS, 1, parametros);
 
-		limpa_FIFO();	
+		limpa_FIFO();
 
 }
 
 void nrf24_transmite(uint8_t buffer[])
 {
 	uint8_t x, status;
-   
+
    	modoTX();
 	spi.start();
 		spi.write(FLUSH_TX);
 	spi.stop();
 
 	uint8_t crc = 0xff;
-	
+
 	for (x=0;x<TAMANHO_MSG-1;x++)	crc=crc+buffer[x];
 	buffer[TAMANHO_MSG-1]=crc;
 	spi.start();
 		spi.write(W_TX_PAYLOAD);
 		for (x=0;x<TAMANHO_MSG;x++)	spi.write(buffer[x]);
 	spi.stop();
-	
+
 
 	CE_HIGH();
 	_delay_us(20);
 	CE_LOW();
 	_delay_us(20);
 	while  (  (le_registrador(STATUS) & (1<<5)) ==0);
-	status = le_registrador(STATUS); 
+	status = le_registrador(STATUS);
 	status = (status | (1<<5));
 	nrf24_escreve_registrador(STATUS,1,(uint8_t *)&status);
 	//_delay_ms(10);
 	modoRX();
-	
 
-	
+
+
 
 
 
@@ -180,11 +180,11 @@ uint8_t buffer[10];
 void limpa_FIFO(void)
 {
 	uint8_t origem;
-	
+
 	nrf24_le_registrador(CONFIG, 1, &origem);
-	
+
 	_delay_us(10);
-	
+
 
 	modoTX();
 	spi.start();
@@ -209,12 +209,12 @@ void nrf24_recebe(uint8_t buffer[])
 		CE_LOW();
 		spi.start();
 			spi.write(R_RX_PAYLOAD);
-			for (x=0;x<TAMANHO_MSG;x++) buffer[x] = spi.write(0xff);	
+			for (x=0;x<TAMANHO_MSG;x++) buffer[x] = spi.write(0xff);
 		spi.stop();
 		spi.start();
 			spi.write(FLUSH_RX);
 		spi.stop();
-	
+
 		// limpa o flag de recepcao de pacote
 		valor=le_registrador(STATUS);
 		valor = valor | (1<<6);
@@ -225,7 +225,7 @@ void nrf24_recebe(uint8_t buffer[])
 		if (crc==buffer[TAMANHO_MSG-1]) return;
 
 	}
-	
+
 }
 void nrf24_le_registrador (uint8_t reg, uint8_t qtd, uint8_t vet[])
 {
@@ -259,6 +259,3 @@ uint8_t le_registrador (uint8_t reg)
 	spi.stop();
 	return x;
 }
-
-
-
