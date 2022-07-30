@@ -28,7 +28,9 @@
 
 
 #include "LPC17xx.h"
-#include "uart.h"
+#include "uart.hpp"
+#include "lcd.hpp"
+#include "nrf24.hpp"
 
 // PCUART0
 #define PCUART0_POWERON (1 << 3)
@@ -65,31 +67,38 @@
 #define LSR_RXFE	0x80
 
  extern "C"
-int _write (int fd, const void *buf, size_t count)
+int _write (uint8_t buffer[])
 {
-	uint8_t x;
-	char *vet = (char *) buf;
+     nrf24_transmite(buffer);
+     return TAMANHO_MSG;
 
-	for (x=0;x<count;x++) UART0_Sendchar(  vet[x]);
-	return count;
+	/* uint8_t x; */
+	/* char *vet = (char *) buf; */
+
+	/* for (x=0;x<count;x++) UART0_Sendchar(  vet[x]); */
+	/* return count; */
 }
  extern "C"
-int _read (int fd, const void *buf, size_t count)
-{
-	uint8_t contador=0;
-	char *vet = (char *) buf;
-	char letra;
+int _read (uint8_t buffer[]) {
+    nrf24_recebe(buffer);
+    buffer[TAMANHO_MSG]=0;
+    lcd_msg((char*)buffer);
+    return TAMANHO_MSG;
+
+	/* uint8_t contador=0; */
+	/* char *vet = (char *) buf; */
+	/* char letra; */
 
 
-	while (contador < count)
-	{
-		letra = UART0_Getchar();
-		if (letra=='\n') break;
-		vet[contador]=letra;
-		contador++;	
-	}
-	vet[contador]='\n';
-	return contador+1;
+	/* while (contador < count) */
+	/* { */
+	/* 	letra = UART0_Getchar(); */
+	/* 	if (letra=='\n') break; */
+	/* 	vet[contador]=letra; */
+	/* 	contador++; */	
+	/* } */
+	/* vet[contador]='\n'; */
+	/* return contador+1; */
 }
 
 

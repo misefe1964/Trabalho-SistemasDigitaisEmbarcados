@@ -197,16 +197,11 @@
 
 
 
-class DIGITAL {
+void pinMode(uint8_t portabit, uint8_t modo);
+uint8_t digitalRead(uint8_t portabit );
+void digitalWrite(uint8_t portabit, uint8_t valor);
 
-	public:
-		void pinMode(uint8_t portabit, uint8_t modo);
-		uint8_t digitalRead(uint8_t portabit );
-		void digitalWrite(uint8_t portabit, uint8_t valor);
 
-};
-
-extern DIGITAL digital;
 #endif
 
 

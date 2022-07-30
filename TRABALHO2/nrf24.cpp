@@ -1,4 +1,4 @@
-#include "digital.hpp"
+#include "digital.h"
 #include "nrf24.hpp"
 #include "spi.hpp"
 #include "delay.hpp"
@@ -14,11 +14,11 @@ uint8_t pino_CE;
 
 void CE_HIGH(void)
 {
-	digital.digitalWrite(pino_CE, HIGH);
+	digitalWrite(pino_CE, HIGH);
 }
 void CE_LOW(void)
 {
-	digital.digitalWrite(pino_CE, LOW);
+	digitalWrite(pino_CE, LOW);
 }
 void power_DOWN (void)
 {
@@ -45,7 +45,7 @@ void nrf24_init (void)
 	_delay_ms(100);
 	spi.init();
 	pino_CE = PIN3_25;
-	digital.pinMode(pino_CE, OUTPUT);
+	pinMode(pino_CE, OUTPUT);
 	CE_LOW();
 	power_DOWN();
 	_delay_ms(300);
@@ -174,7 +174,7 @@ void modoTX(void)
 uint8_t buffer[10];
 	buffer[0]=0x7a;
 	nrf24_escreve_registrador(CONFIG, 1, (uint8_t *)&buffer);
-	digital.digitalWrite(PIN1_22, LOW);
+	digitalWrite(PIN1_22, LOW);
 }
 
 void limpa_FIFO(void)

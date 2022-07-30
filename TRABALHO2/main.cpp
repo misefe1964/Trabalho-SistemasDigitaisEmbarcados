@@ -1,33 +1,51 @@
-#include "digital.hpp"
-#include <stdio.h>
+#include "digital.h"
 #include <string.h>
+#include <stdio.h>
 #include "nrf24.hpp"
 #include "delay.hpp"
-#include "uart.h"
+#include "uart.hpp"
+#include "lcd.hpp"
 
 int main(void)
 {
    int receiver_mode = 1;
 
    SystemInit();
-	 UART0_Init(9600);
-	 uint8_t buffer[20];
-	 uint16_t x;
+   lcd_init();
+	 UART0_Init(115200);
+     char *buffer_rec = 0;
+	 /* uint16_t x; */
 	 nrf24_init();
 
 	 if(receiver_mode) {
-      while(1) {
-         nrf24_recebe(buffer);
-         buffer[TAMANHO_MSG]=0;
-         printf("received=%s\n",(char*)buffer);
-		  }
+          while(1) {
+            scanf("%s", buffer_rec);
+          }
 	 } else {
-      x = 0;
-      while(1) {
-         sprintf((char*)buffer, "TestMsg %d",x);
-         nrf24_transmite(buffer);
-         x++;
-      }
+          while(1) {
+              printf("OI");
+              delay_ms(2000);
+              printf("OI1");
+              delay_ms(2000);
+              printf("OI2");
+              delay_ms(2000);
+              printf("OI3");
+              delay_ms(2000);
+              printf("OI4");
+              delay_ms(2000);
+              printf("OI5");
+              delay_ms(2000);
+              printf("OI6");
+              delay_ms(2000);
+              printf("OI7");
+              delay_ms(2000);
+              printf("OI8");
+              delay_ms(2000);
+              printf("OI9");
+              delay_ms(2000);
+              printf("OI10");
+              delay_ms(2000);
+          }
    }
 
 	 return 0;

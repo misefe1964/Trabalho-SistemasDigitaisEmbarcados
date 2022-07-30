@@ -1,9 +1,8 @@
 
-#include "digital.hpp"
+#include "digital.h"
 
- DIGITAL digital;
 
-void DIGITAL::digitalWrite(uint8_t portabit, uint8_t valor)
+void digitalWrite(uint8_t portabit, uint8_t valor)
 {
 	uint8_t porta = portabit >> 5;
     uint8_t bit   = portabit & 31;
@@ -52,13 +51,9 @@ void DIGITAL::digitalWrite(uint8_t portabit, uint8_t valor)
 	}
 
 
-
-
-
-
 }
 
-uint8_t DIGITAL::digitalRead(uint8_t portabit )
+uint8_t digitalRead(uint8_t portabit )
 {
      uint8_t porta = portabit >> 5;
      uint8_t bit   = portabit & 31;
@@ -87,7 +82,7 @@ uint8_t DIGITAL::digitalRead(uint8_t portabit )
 
 
 
-void DIGITAL::pinMode(uint8_t portabit, uint8_t modo)
+void pinMode(uint8_t portabit, uint8_t modo)
 {
 
 	uint8_t porta = portabit >> 5;

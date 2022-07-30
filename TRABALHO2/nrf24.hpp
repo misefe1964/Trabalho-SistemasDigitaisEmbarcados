@@ -2,7 +2,6 @@
 #define _NRF24_
 #include <inttypes.h>
 
-#define TAMANHO_MSG 32
 // COMANDOS
 #define FLUSH_TX     0xE1
 #define FLUSH_RX      0xE2
@@ -79,4 +78,5 @@ void    nrf24_recebe(uint8_t buffer[]);
 #define STATUS 7
 #define CONFIG 0
 
+#define TAMANHO_MSG 32
 #endif

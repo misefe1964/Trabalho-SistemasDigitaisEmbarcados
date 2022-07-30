@@ -30,11 +30,12 @@
 #define _UART_H_
 #include <stddef.h>
 
+#define TAMANHO_MSG 32
 extern "C"
-int _write (int fd, const void *buf, size_t count);
+int _write (uint8_t buffer[]);
 
 extern "C"
-int _read (int fd, const void *buf, size_t count);
+int _read (uint8_t buffer[]);
 
 // ***********************
 // Function to set up UART
