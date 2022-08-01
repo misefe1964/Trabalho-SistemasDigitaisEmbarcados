@@ -2,7 +2,7 @@
 #define _NRF24_
 #include <inttypes.h>
 
-#define TAMANHO_MSG 32
+#define TAMANHO_MSG 10
 
 // COMANDOS
 #define FLUSH_TX     0xE1

@@ -7,7 +7,7 @@
 #include "delay.h"
 
 uint8_t buffer[50];
-int modulo_receptor = 1;
+int modulo_receptor = 0; // mudar aqui para receptor ou transmissor
 
 int main(void) {
     SystemInit();
@@ -20,7 +20,6 @@ int main(void) {
     while(1) {
       //codigo para o receptor
       nrf24_recebe(buffer);
-      printf("hello its me");
       buffer[TAMANHO_MSG]=0;
       printf("recebido=%s\n",(char*)buffer);
     }
@@ -29,9 +28,9 @@ int main(void) {
     uint16_t x = 0;
     printf("Rodando transmissor...\n");
     while(1) {
-      sprintf((char *)buffer, "oi %d",x);
+      sprintf((char *)buffer, "Mi %d",x);
       nrf24_transmite(buffer); x++;
-      delay_ms(100);
+      delay_ms(1000);
     }
   }
 }

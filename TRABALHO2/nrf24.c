@@ -83,9 +83,9 @@ void nrf24_init(void) {
 	parametros[0] = 0x07;
 	nrf24_escreve_registrador(RF_SETUP, 1, parametros);
 
-	parametros[0] = 1;
-	parametros[1] = 1;
-	parametros[2] = 1;
+	parametros[0] = 6;
+	parametros[1] = 6;
+	parametros[2] = 6;
 
 	nrf24_escreve_registrador(RX_ADDR_P0, 3, parametros);
 	nrf24_escreve_registrador(TX_ADDR, 3, parametros);
@@ -199,12 +199,9 @@ void nrf24_recebe(uint8_t buffer[]) {
 		spi_desabilita();
 		// limpa o flag de recepcao de pacote
 		valor=le_registrador(STATUS);
-        printf("valor de STATUS: %d\n", valor);
 		valor = valor | (1<<6);
 		nrf24_escreve_registrador (STATUS, 1, &valor);
-        printf("?????????????????????????????????\n");
 		CE_HIGH();
-        printf("!!!!!!!!!!!!\n");
         return;
 		/* uint8_t crc = 0xff; */
 		/* for (x=0;x<TAMANHO_MSG-1;x++)	crc=crc+buffer[x]; */
